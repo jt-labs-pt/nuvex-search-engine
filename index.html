@@ -1,0 +1,261 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.nx-wrap{background:var(--color-background-tertiary);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 3rem}
+.nx-logo{font-size:44px;font-weight:500;letter-spacing:-2px;color:var(--color-text-primary);line-height:1;margin-bottom:2px}
+.nx-logo span{color:#4A7CF6}
+.nx-sub{font-size:12px;color:var(--color-text-tertiary);letter-spacing:.05em;margin-bottom:1.5rem}
+.nx-tabs{display:flex;gap:4px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:25px;padding:4px;margin-bottom:1.5rem}
+.nx-tab{padding:6px 18px;border-radius:20px;font-size:13px;color:var(--color-text-secondary);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;border:none;background:transparent;font-family:var(--font-sans)}
+.nx-tab.on{background:#4A7CF6;color:#fff}
+.nx-tab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.nx-search{width:100%;max-width:640px;position:relative;margin-bottom:1.25rem}
+.nx-input{width:100%;height:50px;border-radius:25px;border:1.5px solid var(--color-border-secondary);background:var(--color-background-primary);padding:0 52px 0 20px;font-size:15px;color:var(--color-text-primary);outline:none;font-family:var(--font-sans);transition:border-color .15s}
+.nx-input:focus{border-color:#4A7CF6}
+.nx-input::placeholder{color:var(--color-text-tertiary)}
+.nx-go{position:absolute;right:6px;top:6px;width:38px;height:38px;border-radius:50%;background:#4A7CF6;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.nx-go:hover{background:#3567e8}
+.nx-go svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round}
+.nx-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:640px;margin-bottom:1.75rem}
+.chip{height:28px;padding:0 11px;border-radius:14px;border:1px solid var(--color-border-tertiary);background:var(--color-background-primary);font-size:11px;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .12s;user-select:none}
+.chip.on{border-width:1.5px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5}
+.chip.on .dot{opacity:1}
+.nx-main{width:100%;max-width:640px}
+.dots{display:none;gap:6px;justify-content:center;margin:2rem 0}
+.dots.show{display:flex}
+.dots span{width:8px;height:8px;border-radius:50%;background:#4A7CF6;animation:bop 1.2s infinite}
+.dots span:nth-child(2){animation-delay:.2s}
+.dots span:nth-child(3){animation-delay:.4s}
+@keyframes bop{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+.ai-summary{background:var(--color-background-primary);border:1.5px solid #4A7CF6;border-radius:var(--border-radius-lg);padding:16px 18px;margin-bottom:1.5rem}
+.ai-label{font-size:11px;font-weight:500;color:#185FA5;background:#EEF3FF;padding:2px 9px;border-radius:8px;display:inline-block;margin-bottom:8px}
+.ai-text{font-size:14px;color:var(--color-text-primary);line-height:1.7}
+.ai-sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ai-src{font-size:11px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:2px 8px;color:var(--color-text-secondary)}
+.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-top:4px}
+.sec-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:10px}
+.rcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:11px 15px;margin-bottom:8px;cursor:pointer;text-decoration:none;display:block;transition:border-color .12s,background .12s}
+.rcard:hover{border-color:var(--color-border-secondary);background:var(--color-background-secondary)}
+.rcard-top{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.rcard-src{font-size:11px;color:var(--color-text-tertiary)}
+.rcard-badge{font-size:10px;padding:1px 7px;border-radius:7px;font-weight:500}
+.rcard-title{font-size:14px;font-weight:500;color:#185FA5;margin-bottom:4px;line-height:1.35}
+.rcard-snip{font-size:12px;color:var(--color-text-secondary);line-height:1.55}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:4px}
+.ncard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 15px;cursor:pointer;text-decoration:none;display:block;transition:border-color .12s}
+.ncard:hover{border-color:var(--color-border-secondary)}
+.ncard-cat{font-size:10px;font-weight:500;padding:2px 8px;border-radius:7px;display:inline-block;margin-bottom:7px}
+.ncard-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px;line-height:1.4}
+.ncard-meta{font-size:11px;color:var(--color-text-tertiary);display:flex;gap:8px}
+.news-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+.ncat{padding:5px 13px;border-radius:13px;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);font-size:12px;color:var(--color-text-secondary);cursor:pointer;transition:all .12s}
+.ncat.on{border-color:#4A7CF6;color:#185FA5;background:#EEF3FF}
+.home-suggest{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:1.5rem}
+.sug{padding:6px 14px;border-radius:16px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);font-size:13px;color:var(--color-text-secondary);cursor:pointer;transition:all .12s}
+.sug:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin:1.25rem 0}
+</style>
+
+<div class="nx-wrap">
+  <div class="nx-logo">Nu<span>ve</span>x</div>
+  <div class="nx-sub">pesquisa · IA · notícias</div>
+
+  <div class="nx-tabs">
+    <button class="nx-tab on" id="tabSearch" onclick="switchTab('search')">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      Pesquisa
+    </button>
+    <button class="nx-tab" id="tabNews" onclick="switchTab('news')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+      Notícias
+    </button>
+  </div>
+
+  <div id="panelSearch">
+    <div class="nx-search" style="width:100%;max-width:640px">
+      <input class="nx-input" id="qinput" placeholder="Pesquisa com IA em todos os motores..." autocomplete="off"/>
+      <button class="nx-go" onclick="doSearch()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+    </div>
+    <div class="nx-chips" id="chips"></div>
+    <div class="nx-main" id="results">
+      <div class="home-suggest" id="homeSug">
+        <div class="sug" onclick="setQ('inteligência artificial 2025')">inteligência artificial 2025</div>
+        <div class="sug" onclick="setQ('melhores séries Netflix')">melhores séries Netflix</div>
+        <div class="sug" onclick="setQ('receitas saudáveis rápidas')">receitas saudáveis rápidas</div>
+        <div class="sug" onclick="setQ('aprender programação')">aprender programação</div>
+        <div class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</div>
+        <div class="sug" onclick="setQ('notícias Portugal hoje')">notícias Portugal hoje</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panelNews" style="display:none;width:100%;max-width:640px">
+    <div class="news-cats" id="newsCats"></div>
+    <div id="newsGrid"></div>
+  </div>
+</div>
+
+<script>
+const ENGINES=[
+  {id:'google',name:'Google',c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C',url:q=>`https://www.google.com/search?q=${encodeURIComponent(q)}`},
+  {id:'bing',name:'Bing',c:'#00809D',bg:'#E1F5EE',tc:'#085041',url:q=>`https://www.bing.com/search?q=${encodeURIComponent(q)}`},
+  {id:'duckduckgo',name:'DuckDuckGo',c:'#DE5833',bg:'#FAECE7',tc:'#712B13',url:q=>`https://duckduckgo.com/?q=${encodeURIComponent(q)}`},
+  {id:'yahoo',name:'Yahoo',c:'#6001D2',bg:'#EEEDFE',tc:'#3C3489',url:q=>`https://search.yahoo.com/search?p=${encodeURIComponent(q)}`},
+  {id:'ecosia',name:'Ecosia',c:'#3D7D24',bg:'#EAF3DE',tc:'#27500A',url:q=>`https://www.ecosia.org/search?q=${encodeURIComponent(q)}`},
+  {id:'baidu',name:'Baidu',c:'#2932E1',bg:'#E6F1FB',tc:'#0C447C',url:q=>`https://www.baidu.com/s?wd=${encodeURIComponent(q)}`},
+  {id:'yandex',name:'Yandex',c:'#CC0000',bg:'#FCEBEB',tc:'#791F1F',url:q=>`https://yandex.com/search/?text=${encodeURIComponent(q)}`},
+  {id:'perplexity',name:'Perplexity',c:'#20A0A0',bg:'#E1F5EE',tc:'#085041',url:q=>`https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`},
+];
+
+const AI_SOURCES=[
+  {name:'Claude',c:'#CC785C',bg:'#FAECE7',tc:'#712B13'},
+  {name:'ChatGPT',c:'#10A37F',bg:'#E1F5EE',tc:'#085041'},
+  {name:'Gemini',c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C'},
+  {name:'Copilot',c:'#6264A7',bg:'#EEEDFE',tc:'#3C3489'},
+  {name:'Grok',c:'#1A1A1A',bg:'#F1EFE8',tc:'#444441'},
+  {name:'Mistral',c:'#FF6600',bg:'#FAEEDA',tc:'#633806'},
+];
+
+const NEWS_CATS=['Tudo','Mundo','Tecnologia','Ciência','Desporto','Economia','Saúde','Cultura','Portugal','Ambiente'];
+const NEWS_FEEDS=[
+  {title:'IA supera médicos em diagnóstico de cancro',cat:'Saúde',src:'BBC Science',time:'há 2h',url:'https://www.bbc.com/news/science'},
+  {title:'Portugal regista recorde de turistas em março',cat:'Portugal',src:'Público',time:'há 3h',url:'https://www.publico.pt'},
+  {title:'Novos satélites da SpaceX criam rede internet global',cat:'Tecnologia',src:'Reuters',time:'há 4h',url:'https://www.reuters.com/technology'},
+  {title:'Bolsas europeias sobem com dados da inflação',cat:'Economia',src:'Financial Times',time:'há 1h',url:'https://www.ft.com'},
+  {title:'Cimeira climática debate metas para 2030',cat:'Ambiente',src:'The Guardian',time:'há 5h',url:'https://www.theguardian.com/environment'},
+  {title:'Novo estudo revela origem do universo',cat:'Ciência',src:'Nature',time:'há 6h',url:'https://www.nature.com'},
+  {title:'Champions League: resultados da meia-final',cat:'Desporto',src:'ESPN',time:'há 30m',url:'https://www.espn.com'},
+  {title:'Festival de Cannes anuncia filmes em competição',cat:'Cultura',src:'Variety',time:'há 7h',url:'https://variety.com'},
+  {title:'Tensões diplomáticas no Médio Oriente aumentam',cat:'Mundo',src:'Al Jazeera',time:'há 2h',url:'https://www.aljazeera.com'},
+  {title:'Novo modelo GPT-5 lançado pela OpenAI',cat:'Tecnologia',src:'TechCrunch',time:'há 8h',url:'https://techcrunch.com'},
+  {title:'Governo anuncia reforma no SNS',cat:'Portugal',src:'Jornal de Notícias',time:'há 4h',url:'https://www.jn.pt'},
+  {title:'Descoberta nova espécie de primata no Brasil',cat:'Ciência',src:'National Geographic',time:'há 9h',url:'https://www.nationalgeographic.com'},
+  {title:'Criptomoedas: Bitcoin atinge novo máximo',cat:'Economia',src:'CoinDesk',time:'há 1h',url:'https://www.coindesk.com'},
+  {title:'Exposição de Frida Kahlo chega a Lisboa',cat:'Cultura',src:'Observador',time:'há 5h',url:'https://observador.pt'},
+  {title:'Seca severa afeta sul da Europa',cat:'Ambiente',src:'Euronews',time:'há 3h',url:'https://www.euronews.com'},
+  {title:'OMS alerta para nova variante respiratória',cat:'Saúde',src:'WHO',time:'há 6h',url:'https://www.who.int'},
+  {title:'Record mundial nos 100m é batido',cat:'Desporto',src:'Olympics.com',time:'há 2h',url:'https://olympics.com'},
+  {title:'China lança missão tripulada à Lua',cat:'Mundo',src:'AP News',time:'há 10h',url:'https://apnews.com'},
+];
+
+const AI_RESULTS={
+  default:[
+    {ai:'Claude',title:'Resposta sintetizada pela IA',snip:'Com base em múltiplas fontes, aqui está um resumo detalhado e atualizado sobre o tema pesquisado, incluindo os pontos mais relevantes encontrados na web.',url:'https://claude.ai'},
+    {ai:'ChatGPT',title:'Análise gerada pelo ChatGPT',snip:'O ChatGPT reuniu informação de diversas fontes para apresentar uma visão abrangente do tópico, destacando os aspetos mais importantes e recentes.',url:'https://chatgpt.com'},
+    {ai:'Gemini',title:'Síntese do Google Gemini',snip:'O Gemini analisou os resultados do Google e outras fontes para produzir uma resposta contextualizada e precisa sobre o assunto pesquisado.',url:'https://gemini.google.com'},
+    {ai:'Copilot',title:'Resultado do Microsoft Copilot',snip:'O Copilot combinou dados do Bing com o seu modelo de linguagem para apresentar uma resposta estruturada e com referências verificadas.',url:'https://copilot.microsoft.com'},
+    {ai:'Grok',title:'Análise do Grok (xAI)',snip:'O Grok pesquisou em tempo real na plataforma X e na web para fornecer uma resposta atual e direta sobre o tema consultado.',url:'https://grok.x.ai'},
+    {ai:'Mistral',title:'Resultado do Mistral AI',snip:'O Mistral processou fontes europeias e internacionais para entregar uma resposta equilibrada, com foco na precisão e neutralidade.',url:'https://chat.mistral.ai'},
+  ]
+};
+
+let selEngines=new Set(ENGINES.map(e=>e.id));
+let activeTab='search';
+let activeCat='Tudo';
+
+function switchTab(t){
+  activeTab=t;
+  document.getElementById('panelSearch').style.display=t==='search'?'':'none';
+  document.getElementById('panelNews').style.display=t==='news'?'':'none';
+  document.getElementById('tabSearch').className='nx-tab'+(t==='search'?' on':'');
+  document.getElementById('tabNews').className='nx-tab'+(t==='news'?' on':'');
+  if(t==='news') renderNews();
+}
+
+function renderChips(){
+  const el=document.getElementById('chips');
+  el.innerHTML='';
+  ENGINES.forEach(e=>{
+    const d=document.createElement('div');
+    d.className='chip'+(selEngines.has(e.id)?' on':'');
+    d.innerHTML=`<span class="dot"></span>${e.name}`;
+    if(selEngines.has(e.id)){d.style.borderColor=e.c;d.style.color=e.c;d.style.background=e.bg;}
+    d.onclick=()=>{
+      if(selEngines.has(e.id)){if(selEngines.size>1)selEngines.delete(e.id);}
+      else selEngines.add(e.id);
+      renderChips();
+    };
+    el.appendChild(d);
+  });
+}
+
+function setQ(t){document.getElementById('qinput').value=t;doSearch();}
+
+function getAISrc(name){return AI_SOURCES.find(a=>a.name===name)||AI_SOURCES[0];}
+
+function doSearch(){
+  const q=document.getElementById('qinput').value.trim();
+  if(!q)return;
+  document.getElementById('homeSug').style.display='none';
+  const area=document.getElementById('results');
+  area.innerHTML=`<div class="dots show"><span></span><span></span><span></span></div>`;
+  setTimeout(()=>{
+    let html='';
+    const aiRes=AI_RESULTS.default;
+    html+=`<div class="ai-summary">
+      <div class="ai-label">resposta unificada por IA</div>
+      <div class="ai-text">O Nuvex consultou ${AI_SOURCES.length} IAs e ${selEngines.size} motores de busca para "<strong>${q}</strong>". Abaixo encontras os resultados individuais de cada fonte com a resposta gerada, o link direto e a origem.</div>
+      <div class="ai-sources">${AI_SOURCES.map(a=>`<span class="ai-src" style="border-color:${a.c};color:${a.tc}">${a.name}</span>`).join('')}</div>
+    </div>`;
+    html+=`<div class="sec-head"><span class="sec-badge" style="background:#EEF3FF;color:#0C447C;">respostas das IAs</span></div>`;
+    aiRes.forEach(r=>{
+      const src=getAISrc(r.ai);
+      html+=`<a class="rcard" href="${r.url}" target="_blank" rel="noopener">
+        <div class="rcard-top">
+          <span class="rcard-badge" style="background:${src.bg};color:${src.tc}">${r.ai}</span>
+          <span class="rcard-src">${r.url.replace('https://','')}</span>
+        </div>
+        <div class="rcard-title">${r.title} — "${q}"</div>
+        <div class="rcard-snip">${r.snip}</div>
+      </a>`;
+    });
+    html+=`<div class="divider"></div>`;
+    html+=`<div class="sec-head"><span class="sec-badge" style="background:#F1EFE8;color:#444441;">resultados dos motores de busca</span></div>`;
+    ENGINES.filter(e=>selEngines.has(e.id)).forEach(e=>{
+      html+=`<a class="rcard" href="${e.url(q)}" target="_blank" rel="noopener">
+        <div class="rcard-top">
+          <span class="rcard-badge" style="background:${e.bg};color:${e.tc}">${e.name}</span>
+          <span class="rcard-src">${e.url(q).split('?')[0].replace('https://www.','').replace('https://','')}</span>
+        </div>
+        <div class="rcard-title">Pesquisar "${q}" no ${e.name}</div>
+        <div class="rcard-snip">Clica para ver todos os resultados do ${e.name} para esta pesquisa em tempo real.</div>
+      </a>`;
+    });
+    area.innerHTML=html;
+  },900);
+}
+
+function renderNews(){
+  const cats=document.getElementById('newsCats');
+  cats.innerHTML='';
+  NEWS_CATS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='ncat'+(c===activeCat?' on':'');
+    d.textContent=c;
+    d.onclick=()=>{activeCat=c;renderNews();};
+    cats.appendChild(d);
+  });
+  const filtered=activeCat==='Tudo'?NEWS_FEEDS:NEWS_FEEDS.filter(n=>n.cat===activeCat);
+  const catColors={
+    'Saúde':['#FCEBEB','#791F1F'],'Portugal':['#EEF3FF','#0C447C'],'Tecnologia':['#EEEDFE','#3C3489'],
+    'Economia':['#EAF3DE','#27500A'],'Ambiente':['#E1F5EE','#085041'],'Ciência':['#E6F1FB','#0C447C'],
+    'Desporto':['#FAEEDA','#633806'],'Cultura':['#FBEAF0','#72243E'],'Mundo':['#F1EFE8','#444441'],
+  };
+  const grid=document.getElementById('newsGrid');
+  grid.innerHTML=`<div class="news-grid">${filtered.map(n=>{
+    const [bg,tc]=catColors[n.cat]||['#F1EFE8','#444441'];
+    return `<a class="ncard" href="${n.url}" target="_blank" rel="noopener">
+      <span class="ncard-cat" style="background:${bg};color:${tc}">${n.cat}</span>
+      <div class="ncard-title">${n.title}</div>
+      <div class="ncard-meta"><span>${n.src}</span><span>${n.time}</span></div>
+    </a>`;
+  }).join('')}</div>`;
+}
+
+document.getElementById('qinput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+renderChips();
+</script>
