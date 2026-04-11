@@ -151,12 +151,12 @@ const ENGINES=[
 ];
 
 const AI_SOURCES=[
-  {name:'Claude',    c:'#CC785C',bg:'#FAECE7',tc:'#712B13', url:'https://claude.ai',         snip:'O Claude analisou múltiplas fontes e sintetizou uma resposta detalhada, contextualizada e atualizada sobre o tema pesquisado.'},
-  {name:'ChatGPT',   c:'#10A37F',bg:'#E1F5EE',tc:'#085041', url:'https://chatgpt.com',       snip:'O ChatGPT reuniu informação de diversas fontes para apresentar uma visão abrangente, destacando os aspetos mais importantes e recentes.'},
-  {name:'Gemini',    c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C', url:'https://gemini.google.com', snip:'O Gemini analisou os resultados do Google e outras fontes para produzir uma resposta contextualizada e precisa sobre o assunto.'},
-  {name:'Copilot',   c:'#6264A7',bg:'#EEEDFE',tc:'#3C3489', url:'https://copilot.microsoft.com', snip:'O Copilot combinou dados do Bing com o seu modelo de linguagem para apresentar uma resposta estruturada com referências verificadas.'},
-  {name:'Grok',      c:'#1A1A1A',bg:'#F5F5F0',tc:'#444',    url:'https://grok.x.ai',         snip:'O Grok pesquisou em tempo real na plataforma X e na web para fornecer uma resposta atual e direta sobre o tema consultado.'},
-  {name:'Mistral',   c:'#FF6600',bg:'#FAEEDA',tc:'#633806', url:'https://chat.mistral.ai',   snip:'O Mistral processou fontes europeias e internacionais para entregar uma resposta equilibrada, com foco na precisão e neutralidade.'},
+  {name:'Claude',    c:'#CC785C',bg:'#FAECE7',tc:'#712B13', url:q=>`https://claude.ai/new?q=${encodeURIComponent(q)}`,         domain:'claude.ai',              snip:'O Claude abre diretamente no chat com a tua pesquisa já escrita, pronto para responder.'},
+  {name:'ChatGPT',   c:'#10A37F',bg:'#E1F5EE',tc:'#085041', url:q=>`https://chatgpt.com/?q=${encodeURIComponent(q)}`,           domain:'chatgpt.com',            snip:'O ChatGPT abre com a tua pesquisa no chat, apresentando uma resposta detalhada e atualizada.'},
+  {name:'Gemini',    c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C', url:q=>`https://gemini.google.com/app?q=${encodeURIComponent(q)}`,  domain:'gemini.google.com',      snip:'O Gemini do Google abre com a tua pergunta já inserida, pronto para gerar uma resposta.'},
+  {name:'Copilot',   c:'#6264A7',bg:'#EEEDFE',tc:'#3C3489', url:q=>`https://copilot.microsoft.com/?q=${encodeURIComponent(q)}`, domain:'copilot.microsoft.com',  snip:'O Copilot abre com a tua pesquisa, combinando resultados do Bing com IA da Microsoft.'},
+  {name:'Grok',      c:'#1A1A1A',bg:'#F5F5F0',tc:'#444',    url:q=>`https://grok.com/?q=${encodeURIComponent(q)}`,              domain:'grok.com',               snip:'O Grok abre com a tua pergunta, pesquisando em tempo real na web e na plataforma X.'},
+  {name:'Mistral',   c:'#FF6600',bg:'#FAEEDA',tc:'#633806', url:q=>`https://chat.mistral.ai/chat?q=${encodeURIComponent(q)}`,   domain:'chat.mistral.ai',        snip:'O Mistral abre o chat com a tua pesquisa, entregando uma resposta precisa e equilibrada.'},
 ];
 
 const NEWS_CATS=['Tudo','Mundo','Tecnologia','Ciência','Desporto','Economia','Saúde','Cultura','Portugal','Ambiente'];
@@ -231,14 +231,14 @@ function doSearch(){
       <div class="ai-sources">${AI_SOURCES.map(a=>`<span class="ai-src" style="border-color:${a.c};color:${a.tc}">${a.name}</span>`).join('')}</div>
     </div>`;
 
-    html+=`<div class="sec-head"><span class="sec-badge" style="background:#EEF3FF;color:#0C447C;">respostas das IAs</span></div>`;
+    html+=`<div class="sec-head"><span class="sec-badge" style="background:#EEF3FF;color:#0C447C;">abrir pesquisa nas IAs</span></div>`;
     AI_SOURCES.forEach(a=>{
-      html+=`<a class="rcard" href="${a.url}" target="_blank" rel="noopener noreferrer">
+      html+=`<a class="rcard" href="${a.url(q)}" target="_blank" rel="noopener noreferrer">
         <div class="rcard-top">
           <span class="rcard-badge" style="background:${a.bg};color:${a.tc}">${a.name}</span>
-          <span class="rcard-src">${a.url.replace('https://','')}</span>
+          <span class="rcard-src">${a.domain}</span>
         </div>
-        <div class="rcard-title">Resultado do ${a.name} para "${escHtml(q)}"</div>
+        <div class="rcard-title">Perguntar "${escHtml(q)}" ao ${a.name} →</div>
         <div class="rcard-snip">${a.snip}</div>
       </a>`;
     });
