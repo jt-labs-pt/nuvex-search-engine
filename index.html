@@ -288,24 +288,34 @@ function displayNews(){
 }
 
 async function fetchRSSFeed(feed){
-  try{
-    var r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed.url));
-    var d=await r.json();
-    var xml=new DOMParser().parseFromString(d.contents,'text/xml');
-    var ts=Date.now();
-    return Array.from(xml.querySelectorAll('item')).slice(0,4).map(function(item){
-      var t=item.querySelector('title');
-      var s=item.querySelector('source');
-      var l=item.querySelector('link')||item.querySelector('guid');
-      return {
-        title:t?(t.textContent||'').replace(/ - [^-]+$/,'').trim():'',
-        cat:feed.cat,
-        src:s?s.textContent.trim():'Google News',
-        url:l?l.textContent.trim():'https://news.google.com',
-        ts:ts
-      };
-    }).filter(function(n){return n.title.length>5;});
-  }catch(e){return [];}
+  var proxies=[
+    function(u){return fetch('https://corsproxy.io/?url='+encodeURIComponent(u)).then(function(r){return r.text();});},
+    function(u){return fetch('https://api.allorigins.win/get?url='+encodeURIComponent(u)).then(function(r){return r.json();}).then(function(d){return d.contents;});},
+    function(u){return fetch('https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)).then(function(r){return r.text();});}
+  ];
+  for(var i=0;i<proxies.length;i++){
+    try{
+      var text=await proxies[i](feed.url);
+      if(!text||text.length<100)continue;
+      var xml=new DOMParser().parseFromString(text,'text/xml');
+      var items=Array.from(xml.querySelectorAll('item'));
+      if(!items.length)continue;
+      var ts=Date.now();
+      return items.slice(0,4).map(function(item){
+        var t=item.querySelector('title');
+        var s=item.querySelector('source');
+        var l=item.querySelector('link')||item.querySelector('guid');
+        return {
+          title:t?(t.textContent||'').replace(/ - [^-]+$/,'').trim():'',
+          cat:feed.cat,
+          src:s?s.textContent.trim():'Google News',
+          url:l?l.textContent.trim():'https://news.google.com',
+          ts:ts
+        };
+      }).filter(function(n){return n.title.length>5;});
+    }catch(e){continue;}
+  }
+  return [];
 }
 
 async function fetchLiveNews(force){
