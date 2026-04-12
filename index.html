@@ -7,177 +7,250 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Nuvex"/>
 <meta name="theme-color" content="#4A7CF6"/>
-<meta name="mobile-web-app-capable" content="yes"/>
 <link rel="apple-touch-icon" href="/icon-512.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
-<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
 <link rel="manifest" href="/manifest.json"/>
 <title>Nuvex</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F5F5F0;color:#1a1a1a;min-height:100vh}
-.wrap{display:flex;flex-direction:column;align-items:center;padding:2.5rem 1rem 4rem}
-.logo{font-size:52px;font-weight:500;letter-spacing:-2px;line-height:1;margin-bottom:4px}
-.logo span{color:#4A7CF6}
-.sub{font-size:12px;color:#888;letter-spacing:.06em;margin-bottom:1rem}
-.ibtn{height:34px;padding:0 16px;border-radius:17px;background:#4A7CF6;border:none;color:#fff;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;margin-bottom:1.25rem}
-.ibtn:hover{background:#3567e8}
-.ibtn.show{display:flex}
-.ibtn svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.sbox{width:100%;max-width:640px;position:relative;margin-bottom:1.25rem}
-.sinput{width:100%;height:52px;border-radius:26px;border:1.5px solid #ddd;background:#fff;padding:0 54px 0 22px;font-size:15px;color:#1a1a1a;outline:none;font-family:inherit;transition:border-color .15s}
-.sinput:focus{border-color:#4A7CF6;box-shadow:0 0 0 3px rgba(74,124,246,.12)}
-.sinput::placeholder{color:#bbb}
-.sgo{position:absolute;right:7px;top:7px;width:38px;height:38px;border-radius:50%;background:#4A7CF6;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.sgo:hover{background:#3567e8}
-.sgo svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:640px;margin-bottom:1.75rem}
-.chip{height:29px;padding:0 12px;border-radius:15px;border:1px solid #e5e5e0;background:#fff;font-size:11px;color:#666;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .12s;user-select:none;font-family:inherit}
-.chip.on{border-width:1.5px}
-.chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5}
-.chip.on .dot{opacity:1}
-.main{width:100%;max-width:640px}
-.spin{display:none;gap:7px;justify-content:center;margin:2.5rem 0}
-.spin.show{display:flex}
-.spin span{width:9px;height:9px;border-radius:50%;background:#4A7CF6;animation:bop 1.2s infinite}
-.spin span:nth-child(2){animation-delay:.2s}
-.spin span:nth-child(3){animation-delay:.4s}
-@keyframes bop{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-.aisummary{background:#fff;border:1.5px solid #4A7CF6;border-radius:14px;padding:16px 18px;margin-bottom:1.5rem}
-.ailabel{font-size:11px;font-weight:600;color:#185FA5;background:#EEF3FF;padding:3px 10px;border-radius:8px;display:inline-block;margin-bottom:9px}
-.aitext{font-size:14px;color:#333;line-height:1.7}
-.aisrcs{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.aisrc{font-size:11px;background:#f5f5f0;border:1px solid #e5e5e0;border-radius:8px;padding:2px 9px;color:#555}
-.sh{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-top:4px}
-.sb{font-size:11px;font-weight:600;padding:3px 11px;border-radius:10px}
-.rc{background:#fff;border:1px solid #e8e8e3;border-radius:14px;padding:12px 16px;margin-bottom:9px;text-decoration:none;display:block;transition:border-color .12s,background .12s}
-.rc:hover{border-color:#ccc;background:#fafaf7}
-.rct{display:flex;align-items:center;gap:7px;margin-bottom:4px}
-.rcs{font-size:11px;color:#999}
-.rcb{font-size:10px;padding:2px 8px;border-radius:7px;font-weight:600}
-.rch{font-size:14px;font-weight:500;color:#1558B0;margin-bottom:5px;line-height:1.35}
-.rcp{font-size:12px;color:#666;line-height:1.6}
-.div{height:1px;background:#ebebeb;margin:1.25rem 0}
-..sugs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:2rem}
-.sug{padding:7px 16px;border-radius:18px;background:#fff;border:1px solid #e5e5e0;font-size:13px;color:#666;cursor:pointer;transition:all .12s;font-family:inherit}
-.sug:hover{background:#f5f5f0;color:#333;border-color:#ccc}
-.mbg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;justify-content:center;align-items:center}
-.mbg.show{display:flex}
-.mbox{background:#fff;border-radius:16px;padding:28px 24px;max-width:360px;width:90%;position:relative}
-.mbox h2{font-size:17px;font-weight:500;margin-bottom:8px}
-.mbox p{font-size:13px;color:#666;line-height:1.6;margin-bottom:14px}
-.mclose{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:#aaa;cursor:pointer;font-family:inherit;line-height:1}
-.mstep{background:#F5F5F0;border-radius:10px;padding:12px 14px;font-size:13px;color:#444;line-height:1.8;margin-bottom:10px}
-.mtag{display:inline-block;background:#4A7CF6;color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:600;margin:0 2px}
-@media(max-width:480px){.logo{font-size:40px}.ngrid{grid-template-columns:1fr}}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F5F0; color: #1a1a1a; min-height: 100vh; }
+#wrap { display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1rem 4rem; }
+#logo { font-size: 52px; font-weight: 500; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+#logo span { color: #4A7CF6; }
+#sub { font-size: 12px; color: #888; letter-spacing: .06em; margin-bottom: 1rem; }
+#installBtn { height: 34px; padding: 0 16px; border-radius: 17px; background: #4A7CF6; border: none; color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; display: none; align-items: center; gap: 6px; margin-bottom: 1.25rem; }
+#installBtn.show { display: flex; }
+#installBtn:hover { background: #3567e8; }
+#sbox { width: 100%; max-width: 640px; position: relative; margin-bottom: 1.25rem; }
+#qinput { width: 100%; height: 52px; border-radius: 26px; border: 1.5px solid #ddd; background: #fff; padding: 0 54px 0 22px; font-size: 15px; color: #1a1a1a; outline: none; font-family: inherit; }
+#qinput:focus { border-color: #4A7CF6; box-shadow: 0 0 0 3px rgba(74,124,246,.12); }
+#qinput::placeholder { color: #bbb; }
+#sbtn { position: absolute; right: 7px; top: 7px; width: 38px; height: 38px; border-radius: 50%; background: #4A7CF6; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#sbtn:hover { background: #3567e8; }
+#sbtn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+#chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; max-width: 640px; margin-bottom: 1.75rem; }
+.chip { height: 29px; padding: 0 12px; border-radius: 15px; border: 1px solid #e5e5e0; background: #fff; font-size: 11px; color: #666; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
+.chip.on .dot { opacity: 1; }
+#results { width: 100%; max-width: 640px; }
+.sugs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 2rem; }
+.sug { padding: 7px 16px; border-radius: 18px; background: #fff; border: 1px solid #e5e5e0; font-size: 13px; color: #666; cursor: pointer; font-family: inherit; }
+.sug:hover { background: #f5f5f0; }
+.spinner { display: flex; gap: 7px; justify-content: center; margin: 2.5rem 0; }
+.spinner span { width: 9px; height: 9px; border-radius: 50%; background: #4A7CF6; animation: bop 1.2s infinite; }
+.spinner span:nth-child(2) { animation-delay: .2s; }
+.spinner span:nth-child(3) { animation-delay: .4s; }
+@keyframes bop { 0%,80%,100% { transform: scale(.6); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
+.summary { background: #fff; border: 1.5px solid #4A7CF6; border-radius: 14px; padding: 16px 18px; margin-bottom: 1.5rem; }
+.slabel { font-size: 11px; font-weight: 600; color: #185FA5; background: #EEF3FF; padding: 3px 10px; border-radius: 8px; display: inline-block; margin-bottom: 9px; }
+.stext { font-size: 14px; color: #333; line-height: 1.7; }
+.stags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.stag { font-size: 11px; background: #f5f5f0; border: 1px solid #e5e5e0; border-radius: 8px; padding: 2px 9px; color: #555; }
+.sechead { display: flex; align-items: center; gap: 8px; margin: 12px 0 10px; }
+.secbadge { font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 10px; }
+.rcard { background: #fff; border: 1px solid #e8e8e3; border-radius: 14px; padding: 12px 16px; margin-bottom: 9px; text-decoration: none; display: block; }
+.rcard:hover { border-color: #ccc; background: #fafaf7; }
+.rtop { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+.rsrc { font-size: 11px; color: #999; }
+.rbadge { font-size: 10px; padding: 2px 8px; border-radius: 7px; font-weight: 600; }
+.rtitle { font-size: 14px; font-weight: 500; color: #1558B0; margin-bottom: 5px; line-height: 1.35; }
+.rsnip { font-size: 12px; color: #666; line-height: 1.6; }
+.divider { height: 1px; background: #ebebeb; margin: 1.25rem 0; }
+.modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
+.modal-bg.show { display: flex; }
+.modal { background: #fff; border-radius: 16px; padding: 28px 24px; max-width: 360px; width: 90%; position: relative; }
+.modal h2 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+.modal p { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 14px; }
+.modal-close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 22px; color: #aaa; cursor: pointer; line-height: 1; }
+.mstep { background: #F5F5F0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #444; line-height: 1.8; margin-bottom: 10px; }
+.mtag { display: inline-block; background: #4A7CF6; color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 11px; font-weight: 600; }
+@media(max-width:480px) { #logo { font-size: 40px; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="logo">Nu<span>ve</span>x</div>
-  <div class="sub">pesquisa &middot; IA &middot; not&iacute;cias</div>
 
-  <button class="ibtn" id="installBtn" onclick="handleInstall()">
-    <svg viewBox="0 0 24 24"><path d="M12 2v13m0 0l-4-4m4 4l4-4M2 17v2a2 2 0 002 2h16a2 2 0 002-2v-2"/></svg>
+<div id="wrap">
+  <div id="logo">Nu<span>ve</span>x</div>
+  <div id="sub">pesquisa &middot; IA</div>
+
+  <button id="installBtn" onclick="handleInstall()">
+    <svg viewBox="0 0 24 24" width="13" height="13" stroke="#fff" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v13m0 0l-4-4m4 4l4-4M2 17v2a2 2 0 002 2h16a2 2 0 002-2v-2"/></svg>
     Instalar app
   </button>
 
-  <div id="panelSearch" style="width:100%;display:flex;flex-direction:column;align-items:center">
-    <div class="sbox">
-      <input class="sinput" id="qinput" placeholder="Pesquisa com IA em todos os motores..." autocomplete="off"/>
-      <button class="sgo" onclick="doSearch()">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-      </button>
-    </div>
-    <div class="chips" id="chips"></div>
-    <div class="main" id="results">
-      <div class="sugs">
-        <button class="sug" onclick="setQ('inteligência artificial 2025')">inteligência artificial 2025</button>
-        <button class="sug" onclick="setQ('melhores séries Netflix')">melhores séries Netflix</button>
-        <button class="sug" onclick="setQ('receitas saudáveis rápidas')">receitas saudáveis rápidas</button>
-        <button class="sug" onclick="setQ('aprender programação')">aprender programação</button>
-        <button class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</button>
-        <button class="sug" onclick="setQ('notícias Portugal hoje')">notícias Portugal hoje</button>
-      </div>
+  <div id="sbox">
+    <input id="qinput" type="text" placeholder="Pesquisa em todos os motores e IAs..." autocomplete="off"/>
+    <button id="sbtn" onclick="doSearch()">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+    </button>
+  </div>
+
+  <div id="chips"></div>
+
+  <div id="results">
+    <div class="sugs">
+      <button class="sug" onclick="setQ('inteligência artificial 2025')">inteligência artificial 2025</button>
+      <button class="sug" onclick="setQ('melhores séries Netflix')">melhores séries Netflix</button>
+      <button class="sug" onclick="setQ('receitas saudáveis rápidas')">receitas saudáveis rápidas</button>
+      <button class="sug" onclick="setQ('aprender programação')">aprender programação</button>
+      <button class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</button>
+      <button class="sug" onclick="setQ('notícias Portugal hoje')">notícias Portugal hoje</button>
     </div>
   </div>
 </div>
 
-<div class="mbg" id="installModal" onclick="bgClick(event)">
-  <div class="mbox">
-    <button class="mclose" onclick="closeModal()">&#215;</button>
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
     <h2>Instalar o Nuvex</h2>
-    <p>Adiciona o Nuvex ao teu ecr&atilde; inicial como uma app nativa.</p>
-    <div id="modalContent"></div>
+    <p>Adiciona ao teu ecr&atilde; inicial como uma app nativa.</p>
+    <div class="mstep"><strong>iPhone / iPad (Safari):</strong><br>1. Abre no <strong>Safari</strong><br>2. Toca em <span class="mtag">Partilhar &#x2191;</span><br>3. Toca em <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>
+    <div class="mstep"><strong>Android (Chrome):</strong><br>Menu <span class="mtag">&#8942;</span> &rarr; <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>
+    <div class="mstep"><strong>Computador (Chrome / Edge):</strong><br>Clica no &iacute;cone <span class="mtag">&#x2193;</span> na barra de endere&ccedil;o<br>ou menu <span class="mtag">&#8942;</span> &rarr; <strong>"Instalar Nuvex"</strong></div>
   </div>
 </div>
 
 <script>
-var ENGINES=[
-  {id:'google',    name:'Google',     c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C', url:function(q){return 'https://www.google.com/search?q='+encodeURIComponent(q);}},
-  {id:'bing',      name:'Bing',       c:'#00809D',bg:'#E1F5EE',tc:'#085041', url:function(q){return 'https://www.bing.com/search?q='+encodeURIComponent(q);}},
-  {id:'duckduckgo',name:'DuckDuckGo', c:'#DE5833',bg:'#FAECE7',tc:'#712B13', url:function(q){return 'https://duckduckgo.com/?q='+encodeURIComponent(q);}},
-  {id:'yahoo',     name:'Yahoo',      c:'#6001D2',bg:'#EEEDFE',tc:'#3C3489', url:function(q){return 'https://search.yahoo.com/search?p='+encodeURIComponent(q);}},
-  {id:'ecosia',    name:'Ecosia',     c:'#3D7D24',bg:'#EAF3DE',tc:'#27500A', url:function(q){return 'https://www.ecosia.org/search?q='+encodeURIComponent(q);}},
-  {id:'baidu',     name:'Baidu',      c:'#2932E1',bg:'#E6F1FB',tc:'#0C447C', url:function(q){return 'https://www.baidu.com/s?wd='+encodeURIComponent(q);}},
-  {id:'yandex',    name:'Yandex',     c:'#CC0000',bg:'#FCEBEB',tc:'#791F1F', url:function(q){return 'https://yandex.com/search/?text='+encodeURIComponent(q);}},
-  {id:'perplexity',name:'Perplexity', c:'#20A0A0',bg:'#E1F5EE',tc:'#085041', url:function(q){return 'https://www.perplexity.ai/search?q='+encodeURIComponent(q);}},
-];
-var AI_SOURCES=[
-  {name:'Claude',   c:'#CC785C',bg:'#FAECE7',tc:'#712B13',domain:'claude.ai',             url:function(q){return 'https://claude.ai/new?q='+encodeURIComponent(q);},          snip:'Abre diretamente no chat com a tua pesquisa já escrita.'},
-  {name:'ChatGPT',  c:'#10A37F',bg:'#E1F5EE',tc:'#085041',domain:'chatgpt.com',           url:function(q){return 'https://chatgpt.com/?q='+encodeURIComponent(q);},            snip:'Abre com a tua pesquisa no chat, apresentando uma resposta detalhada.'},
-  {name:'Gemini',   c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C',domain:'gemini.google.com',     url:function(q){return 'https://gemini.google.com/app#'+encodeURIComponent(q);},     snip:'Abre com a tua pergunta inserida, pronto para gerar uma resposta.'},
-  {name:'Copilot',  c:'#6264A7',bg:'#EEEDFE',tc:'#3C3489',domain:'copilot.microsoft.com', url:function(q){return 'https://copilot.microsoft.com/?q='+encodeURIComponent(q);},  snip:'Combina resultados do Bing com IA da Microsoft.'},
-  {name:'Grok',     c:'#222222',bg:'#F5F5F0',tc:'#444444',domain:'grok.com',              url:function(q){return 'https://grok.com/?q='+encodeURIComponent(q);},               snip:'Pesquisa em tempo real na web e na plataforma X.'},
-  {name:'Mistral',  c:'#FF6600',bg:'#FAEEDA',tc:'#633806',domain:'chat.mistral.ai',       url:function(q){return 'https://chat.mistral.ai/chat?q='+encodeURIComponent(q);},    snip:'Resposta precisa e equilibrada com foco na neutralidade.'},
+var ENGINES = [
+  { id:'google',     name:'Google',     c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.google.com/search?q=' + encodeURIComponent(q); } },
+  { id:'bing',       name:'Bing',       c:'#00809D', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.bing.com/search?q=' + encodeURIComponent(q); } },
+  { id:'duckduckgo', name:'DuckDuckGo', c:'#DE5833', bg:'#FAECE7', tc:'#712B13', url: function(q){ return 'https://duckduckgo.com/?q=' + encodeURIComponent(q); } },
+  { id:'yahoo',      name:'Yahoo',      c:'#6001D2', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://search.yahoo.com/search?p=' + encodeURIComponent(q); } },
+  { id:'ecosia',     name:'Ecosia',     c:'#3D7D24', bg:'#EAF3DE', tc:'#27500A', url: function(q){ return 'https://www.ecosia.org/search?q=' + encodeURIComponent(q); } },
+  { id:'baidu',      name:'Baidu',      c:'#2932E1', bg:'#E6F1FB', tc:'#0C447C', url: function(q){ return 'https://www.baidu.com/s?wd=' + encodeURIComponent(q); } },
+  { id:'yandex',     name:'Yandex',     c:'#CC0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://yandex.com/search/?text=' + encodeURIComponent(q); } },
+  { id:'perplexity', name:'Perplexity', c:'#20A0A0', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.perplexity.ai/search?q=' + encodeURIComponent(q); } }
 ];
 
-function getQueryParam(){return new URL(window.location.href).searchParams.get('q')||null;}
-function pushURL(q){var u=new URL(window.location.href);q?u.searchParams.set('q',q):u.searchParams.delete('q');history.pushState({q:q},'',u.toString());}
-window.addEventListener('popstate',function(e){
-  var q=e.state&&e.state.q?e.state.q:getQueryParam();
-  if(q){document.getElementById('qinput').value=q;switchTab('search');doSearch();}
+var AI = [
+  { name:'Claude',    c:'#CC785C', bg:'#FAECE7', tc:'#712B13', domain:'claude.ai',             url: function(q){ return 'https://claude.ai/new?q=' + encodeURIComponent(q); },          snip:'Abre no chat com a tua pesquisa já escrita.' },
+  { name:'ChatGPT',   c:'#10A37F', bg:'#E1F5EE', tc:'#085041', domain:'chatgpt.com',           url: function(q){ return 'https://chatgpt.com/?q=' + encodeURIComponent(q); },            snip:'Abre com a tua pesquisa, pronto para responder.' },
+  { name:'Gemini',    c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', domain:'gemini.google.com',     url: function(q){ return 'https://gemini.google.com/app#' + encodeURIComponent(q); },     snip:'Abre com a tua pergunta inserida.' },
+  { name:'Copilot',   c:'#6264A7', bg:'#EEEDFE', tc:'#3C3489', domain:'copilot.microsoft.com', url: function(q){ return 'https://copilot.microsoft.com/?q=' + encodeURIComponent(q); },  snip:'IA da Microsoft com resultados do Bing.' },
+  { name:'Grok',      c:'#222222', bg:'#F5F5F0', tc:'#444444', domain:'grok.com',              url: function(q){ return 'https://grok.com/?q=' + encodeURIComponent(q); },               snip:'Pesquisa em tempo real na web e na plataforma X.' },
+  { name:'Mistral',   c:'#FF6600', bg:'#FAEEDA', tc:'#633806', domain:'chat.mistral.ai',       url: function(q){ return 'https://chat.mistral.ai/chat?q=' + encodeURIComponent(q); },    snip:'Resposta precisa com foco na neutralidade.' }
+];
+
+var sel = new Set(ENGINES.map(function(e){ return e.id; }));
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderChips() {
+  var el = document.getElementById('chips');
+  el.innerHTML = '';
+  ENGINES.forEach(function(e) {
+    var btn = document.createElement('button');
+    btn.className = 'chip' + (sel.has(e.id) ? ' on' : '');
+    btn.innerHTML = '<span class="dot"></span>' + e.name;
+    if (sel.has(e.id)) {
+      btn.style.borderColor = e.c;
+      btn.style.color = e.c;
+      btn.style.background = e.bg;
+      btn.style.borderWidth = '1.5px';
+    }
+    btn.onclick = function() {
+      if (sel.has(e.id)) { if (sel.size > 1) sel.delete(e.id); }
+      else sel.add(e.id);
+      renderChips();
+    };
+    el.appendChild(btn);
+  });
+}
+
+function setQ(text) {
+  document.getElementById('qinput').value = text;
+  doSearch();
+}
+
+function doSearch() {
+  var q = document.getElementById('qinput').value.trim();
+  if (!q) return;
+
+  var u = new URL(window.location.href);
+  u.searchParams.set('q', q);
+  history.pushState({ q: q }, '', u.toString());
+
+  var area = document.getElementById('results');
+  area.innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
+
+  setTimeout(function() {
+    var h = '';
+
+    h += '<div class="summary">';
+    h += '<div class="slabel">pesquisa com IA</div>';
+    h += '<div class="stext">Nuvex consultou <strong>' + AI.length + ' IAs</strong> e <strong>' + sel.size + ' motores</strong> para <strong>' + esc(q) + '</strong>.</div>';
+    h += '<div class="stags">';
+    AI.forEach(function(a) {
+      h += '<span class="stag" style="border-color:' + a.c + ';color:' + a.tc + '">' + a.name + '</span>';
+    });
+    h += '</div></div>';
+
+    h += '<div class="sechead"><span class="secbadge" style="background:#EEF3FF;color:#0C447C;">abrir nas IAs</span></div>';
+    AI.forEach(function(a) {
+      h += '<a class="rcard" href="' + a.url(q) + '" target="_blank" rel="noopener">';
+      h += '<div class="rtop"><span class="rbadge" style="background:' + a.bg + ';color:' + a.tc + '">' + a.name + '</span><span class="rsrc">' + a.domain + '</span></div>';
+      h += '<div class="rtitle">Perguntar "' + esc(q) + '" ao ' + a.name + ' &rarr;</div>';
+      h += '<div class="rsnip">' + a.snip + '</div>';
+      h += '</a>';
+    });
+
+    h += '<div class="divider"></div>';
+    h += '<div class="sechead"><span class="secbadge" style="background:#F5F5F0;color:#444;">motores de busca</span></div>';
+    ENGINES.forEach(function(e) {
+      if (!sel.has(e.id)) return;
+      var domain = e.url(q).split('?')[0].replace('https://www.','').replace('https://','');
+      h += '<a class="rcard" href="' + e.url(q) + '" target="_blank" rel="noopener">';
+      h += '<div class="rtop"><span class="rbadge" style="background:' + e.bg + ';color:' + e.tc + '">' + e.name + '</span><span class="rsrc">' + domain + '</span></div>';
+      h += '<div class="rtitle">Pesquisar "' + esc(q) + '" no ' + e.name + ' &rarr;</div>';
+      h += '<div class="rsnip">Ver resultados em tempo real.</div>';
+      h += '</a>';
+    });
+
+    area.innerHTML = h;
+  }, 600);
+}
+
+window.addEventListener('popstate', function(e) {
+  var q = e.state && e.state.q ? e.state.q : new URL(window.location.href).searchParams.get('q');
+  if (q) { document.getElementById('qinput').value = q; doSearch(); }
 });
 
-var _deferredPrompt=null;
-function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;}
-function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;}
+document.getElementById('qinput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doSearch();
+});
 
-window.addEventListener('beforeinstallprompt',function(e){
-  e.preventDefault();_deferredPrompt=e;
+var _prompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault(); _prompt = e;
   document.getElementById('installBtn').classList.add('show');
 });
-window.addEventListener('appinstalled',function(){
-  document.getElementById('installBtn').classList.remove('show');_deferredPrompt=null;closeModal();
+window.addEventListener('appinstalled', function() {
+  document.getElementById('installBtn').classList.remove('show'); _prompt = null;
 });
 
-function handleInstall(){
-  if(_deferredPrompt){
-    _deferredPrompt.prompt();
-    _deferredPrompt.userChoice.then(function(){_deferredPrompt=null;document.getElementById('installBtn').classList.remove('show');});
+function handleInstall() {
+  if (_prompt) {
+    _prompt.prompt();
+    _prompt.userChoice.then(function() { _prompt = null; document.getElementById('installBtn').classList.remove('show'); });
   } else {
-    var ios=isIOS();
-    document.getElementById('modalContent').innerHTML=ios
-      ?'<div class="mstep">1. Toca em <span class="mtag">Partilhar &#x2191;</span> no Safari<br>2. Seleciona <strong>"Adicionar ao ecr&atilde; inicial"</strong><br>3. Toca em <strong>Adicionar</strong></div>'
-      :'<div class="mstep"><strong>Chrome / Chromium / Edge:</strong><br>Clica no &iacute;cone <span class="mtag">&#x2193;</span> na barra de endere&ccedil;o (lado direito)<br>ou vai ao menu <span class="mtag">&#x22EE;</span> &rarr; <strong>"Instalar Nuvex..."</strong></div>'
-       +'<div class="mstep"><strong>Android (Chrome):</strong><br>Menu <span class="mtag">&#x22EE;</span> &rarr; <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>';
-    document.getElementById('installModal').classList.add('show');
+    openModal();
   }
 }
-function bgClick(e){if(e.target===document.getElementById('installModal'))closeModal();}
-function closeModal(){document.getElementById('installModal').classList.remove('show');}
 
-if(!isStandalone()){document.getElementById('installBtn').classList.add('show');}
+function openModal()  { document.getElementById('modal').classList.add('show'); }
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
 
-if('serviceWorker' in navigator){
-  var sw='const C="nuvex-v1";self.addEventListener("install",e=>e.waitUntil(caches.open(C).then(c=>c.addAll(["/"]))));self.addEventListener("fetch",e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));';
-  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(function(){});
-}
+var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+if (!standalone) document.getElementById('installBtn').classList.add('show');
 
-document.getElementById('qinput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+
+
+var initQ = new URL(window.location.href).searchParams.get('q');
+if (initQ) { document.getElementById('qinput').value = initQ; setTimeout(doSearch, 100); }
+
 renderChips();
-var iq=getQueryParam();
-if(iq){document.getElementById('qinput').value=iq;switchTab('search');setTimeout(doSearch,100);}
 </script>
 </body>
 </html>
