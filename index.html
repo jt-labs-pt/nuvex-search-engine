@@ -24,10 +24,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .ibtn:hover{background:#3567e8}
 .ibtn.show{display:flex}
 .ibtn svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.tabs{display:flex;gap:4px;background:#fff;border:1px solid #e5e5e0;border-radius:25px;padding:4px;margin-bottom:1.5rem}
-.tab{padding:7px 20px;border-radius:20px;font-size:13px;color:#666;cursor:pointer;display:flex;align-items:center;gap:6px;border:none;background:transparent;font-family:inherit;transition:all .15s}
-.tab.on{background:#4A7CF6;color:#fff}
-.tab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sbox{width:100%;max-width:640px;position:relative;margin-bottom:1.25rem}
 .sinput{width:100%;height:52px;border-radius:26px;border:1.5px solid #ddd;background:#fff;padding:0 54px 0 22px;font-size:15px;color:#1a1a1a;outline:none;font-family:inherit;transition:border-color .15s}
 .sinput:focus{border-color:#4A7CF6;box-shadow:0 0 0 3px rgba(74,124,246,.12)}
@@ -62,17 +58,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .rch{font-size:14px;font-weight:500;color:#1558B0;margin-bottom:5px;line-height:1.35}
 .rcp{font-size:12px;color:#666;line-height:1.6}
 .div{height:1px;background:#ebebeb;margin:1.25rem 0}
-.ncats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:1.25rem;width:100%;max-width:640px}
-.ncat{padding:6px 14px;border-radius:14px;border:1px solid #e5e5e0;background:#fff;font-size:12px;color:#666;cursor:pointer;transition:all .12s;font-family:inherit}
-.ncat:hover{border-color:#bbb;color:#333}
-.ncat.on{border-color:#4A7CF6;color:#185FA5;background:#EEF3FF;border-width:1.5px}
-.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;width:100%;max-width:640px}
-.nc{background:#fff;border:1px solid #e8e8e3;border-radius:14px;padding:14px 15px;text-decoration:none;display:block;transition:border-color .12s}
-.nc:hover{border-color:#ccc}
-.ncc{font-size:10px;font-weight:600;padding:2px 9px;border-radius:7px;display:inline-block;margin-bottom:8px}
-.nct{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;line-height:1.45}
-.ncm{font-size:11px;color:#999;display:flex;gap:10px}
-.sugs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:2rem}
+..sugs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:2rem}
 .sug{padding:7px 16px;border-radius:18px;background:#fff;border:1px solid #e5e5e0;font-size:13px;color:#666;cursor:pointer;transition:all .12s;font-family:inherit}
 .sug:hover{background:#f5f5f0;color:#333;border-color:#ccc}
 .mbg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;justify-content:center;align-items:center}
@@ -96,17 +82,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     Instalar app
   </button>
 
-  <div class="tabs">
-    <button class="tab on" id="tabSearch" onclick="switchTab('search')">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-      Pesquisa
-    </button>
-    <button class="tab" id="tabNews" onclick="switchTab('news')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
-      Not&iacute;cias
-    </button>
-  </div>
-
   <div id="panelSearch" style="width:100%;display:flex;flex-direction:column;align-items:center">
     <div class="sbox">
       <input class="sinput" id="qinput" placeholder="Pesquisa com IA em todos os motores..." autocomplete="off"/>
@@ -117,19 +92,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="chips" id="chips"></div>
     <div class="main" id="results">
       <div class="sugs">
-        <button class="sug" onclick="setQ('intelig\u00eancia artificial 2025')">intelig\u00eancia artificial 2025</button>
-        <button class="sug" onclick="setQ('melhores s\u00e9ries Netflix')">melhores s\u00e9ries Netflix</button>
-        <button class="sug" onclick="setQ('receitas saud\u00e1veis r\u00e1pidas')">receitas saud\u00e1veis r\u00e1pidas</button>
-        <button class="sug" onclick="setQ('aprender programa\u00e7\u00e3o')">aprender programa\u00e7\u00e3o</button>
+        <button class="sug" onclick="setQ('inteligência artificial 2025')">inteligência artificial 2025</button>
+        <button class="sug" onclick="setQ('melhores séries Netflix')">melhores séries Netflix</button>
+        <button class="sug" onclick="setQ('receitas saudáveis rápidas')">receitas saudáveis rápidas</button>
+        <button class="sug" onclick="setQ('aprender programação')">aprender programação</button>
         <button class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</button>
-        <button class="sug" onclick="setQ('not\u00edcias Portugal hoje')">not\u00edcias Portugal hoje</button>
+        <button class="sug" onclick="setQ('notícias Portugal hoje')">notícias Portugal hoje</button>
       </div>
     </div>
-  </div>
-
-  <div id="panelNews" style="display:none;width:100%;flex-direction:column;align-items:center">
-    <div class="ncats" id="newsCats"></div>
-    <div class="ngrid" id="newsGrid"></div>
   </div>
 </div>
 
@@ -154,194 +124,13 @@ var ENGINES=[
   {id:'perplexity',name:'Perplexity', c:'#20A0A0',bg:'#E1F5EE',tc:'#085041', url:function(q){return 'https://www.perplexity.ai/search?q='+encodeURIComponent(q);}},
 ];
 var AI_SOURCES=[
-  {name:'Claude',   c:'#CC785C',bg:'#FAECE7',tc:'#712B13',domain:'claude.ai',             url:function(q){return 'https://claude.ai/new?q='+encodeURIComponent(q);},          snip:'Abre diretamente no chat com a tua pesquisa j\u00e1 escrita.'},
+  {name:'Claude',   c:'#CC785C',bg:'#FAECE7',tc:'#712B13',domain:'claude.ai',             url:function(q){return 'https://claude.ai/new?q='+encodeURIComponent(q);},          snip:'Abre diretamente no chat com a tua pesquisa já escrita.'},
   {name:'ChatGPT',  c:'#10A37F',bg:'#E1F5EE',tc:'#085041',domain:'chatgpt.com',           url:function(q){return 'https://chatgpt.com/?q='+encodeURIComponent(q);},            snip:'Abre com a tua pesquisa no chat, apresentando uma resposta detalhada.'},
   {name:'Gemini',   c:'#4285F4',bg:'#EEF3FF',tc:'#0C447C',domain:'gemini.google.com',     url:function(q){return 'https://gemini.google.com/app#'+encodeURIComponent(q);},     snip:'Abre com a tua pergunta inserida, pronto para gerar uma resposta.'},
   {name:'Copilot',  c:'#6264A7',bg:'#EEEDFE',tc:'#3C3489',domain:'copilot.microsoft.com', url:function(q){return 'https://copilot.microsoft.com/?q='+encodeURIComponent(q);},  snip:'Combina resultados do Bing com IA da Microsoft.'},
   {name:'Grok',     c:'#222222',bg:'#F5F5F0',tc:'#444444',domain:'grok.com',              url:function(q){return 'https://grok.com/?q='+encodeURIComponent(q);},               snip:'Pesquisa em tempo real na web e na plataforma X.'},
   {name:'Mistral',  c:'#FF6600',bg:'#FAEEDA',tc:'#633806',domain:'chat.mistral.ai',       url:function(q){return 'https://chat.mistral.ai/chat?q='+encodeURIComponent(q);},    snip:'Resposta precisa e equilibrada com foco na neutralidade.'},
 ];
-var NEWS_CATS=['Tudo','Mundo','Tecnologia','Ci\u00eancia','Desporto','Economia','Sa\u00fade','Cultura','Portugal','Ambiente'];
-var NEWS_CACHE_KEY='nuvex_news_v2';
-var NEWS_CACHE_TTL=30*60*1000;
-var GNEWS_FEEDS=[
-  {cat:'Mundo',      url:'https://news.google.com/rss/headlines/section/topic/WORLD?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Tecnologia', url:'https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Ci\u00eancia',    url:'https://news.google.com/rss/headlines/section/topic/SCIENCE?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Desporto',   url:'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Economia',   url:'https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Sa\u00fade',      url:'https://news.google.com/rss/headlines/section/topic/HEALTH?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Cultura',    url:'https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Portugal',   url:'https://news.google.com/rss/search?q=Portugal&hl=pt-PT&gl=PT&ceid=PT:pt'},
-  {cat:'Ambiente',   url:'https://news.google.com/rss/search?q=ambiente+clima&hl=pt-PT&gl=PT&ceid=PT:pt'},
-];
-var CAT_COLORS={
-  'Sa\u00fade':['#FCEBEB','#791F1F'],'Portugal':['#EEF3FF','#0C447C'],'Tecnologia':['#EEEDFE','#3C3489'],
-  'Economia':['#EAF3DE','#27500A'],'Ambiente':['#E1F5EE','#085041'],'Ci\u00eancia':['#E6F1FB','#0C447C'],
-  'Desporto':['#FAEEDA','#633806'],'Cultura':['#FBEAF0','#72243E'],'Mundo':['#F1EFE8','#444441'],
-};
-var selEngines=new Set(ENGINES.map(function(e){return e.id;}));
-var activeCat='Tudo';
-var NEWS=[];
-var newsLoaded=false;
-
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function renderChips(){
-  var el=document.getElementById('chips');
-  el.innerHTML='';
-  ENGINES.forEach(function(e){
-    var d=document.createElement('button');
-    d.className='chip'+(selEngines.has(e.id)?' on':'');
-    d.innerHTML='<span class="dot"></span>'+e.name;
-    if(selEngines.has(e.id)){d.style.borderColor=e.c;d.style.color=e.c;d.style.background=e.bg;}
-    d.onclick=function(){
-      if(selEngines.has(e.id)){if(selEngines.size>1)selEngines.delete(e.id);}else selEngines.add(e.id);
-      renderChips();
-    };
-    el.appendChild(d);
-  });
-}
-
-function setQ(t){document.getElementById('qinput').value=t;doSearch();}
-
-function doSearch(){
-  var q=document.getElementById('qinput').value.trim();
-  if(!q)return;
-  pushURL(q);
-  var area=document.getElementById('results');
-  area.innerHTML='<div class="spin show"><span></span><span></span><span></span></div>';
-  setTimeout(function(){
-    var h='<div class="aisummary">'
-      +'<div class="ailabel">pesquisa com IA</div>'
-      +'<div class="aitext">O <strong>Nuvex</strong> consultou '+AI_SOURCES.length+' IAs e '+selEngines.size+' motores para <strong>'+esc(q)+'</strong>.</div>'
-      +'<div class="aisrcs">'+AI_SOURCES.map(function(a){return '<span class="aisrc" style="border-color:'+a.c+';color:'+a.tc+'">'+a.name+'</span>';}).join('')+'</div>'
-      +'</div>';
-    h+='<div class="sh"><span class="sb" style="background:#EEF3FF;color:#0C447C;">abrir nas IAs</span></div>';
-    AI_SOURCES.forEach(function(a){
-      h+='<a class="rc" href="'+a.url(q)+'" target="_blank" rel="noopener">'
-        +'<div class="rct"><span class="rcb" style="background:'+a.bg+';color:'+a.tc+'">'+a.name+'</span>'
-        +'<span class="rcs">'+a.domain+'</span></div>'
-        +'<div class="rch">Perguntar "'+esc(q)+'" ao '+a.name+' \u2192</div>'
-        +'<div class="rcp">'+a.snip+'</div></a>';
-    });
-    h+='<div class="div"></div>';
-    h+='<div class="sh"><span class="sb" style="background:#F5F5F0;color:#444;">motores de busca</span></div>';
-    ENGINES.forEach(function(e){
-      if(!selEngines.has(e.id))return;
-      h+='<a class="rc" href="'+e.url(q)+'" target="_blank" rel="noopener">'
-        +'<div class="rct"><span class="rcb" style="background:'+e.bg+';color:'+e.tc+'">'+e.name+'</span>'
-        +'<span class="rcs">'+e.url(q).split('?')[0].replace('https://www.','').replace('https://','')+'</span></div>'
-        +'<div class="rch">Pesquisar "'+esc(q)+'" no '+e.name+' \u2192</div>'
-        +'<div class="rcp">Ver todos os resultados do '+e.name+' em tempo real.</div></a>';
-    });
-    area.innerHTML=h;
-  },700);
-}
-
-function switchTab(t){
-  document.getElementById('panelSearch').style.display=t==='search'?'flex':'none';
-  document.getElementById('panelNews').style.display=t==='news'?'flex':'none';
-  document.getElementById('tabSearch').className='tab'+(t==='search'?' on':'');
-  document.getElementById('tabNews').className='tab'+(t==='news'?' on':'');
-  if(t==='news')renderNews();
-}
-
-function renderNewsCats(){
-  var el=document.getElementById('newsCats');
-  el.innerHTML='';
-  NEWS_CATS.forEach(function(c){
-    var b=document.createElement('button');
-    b.className='ncat'+(c===activeCat?' on':'');
-    b.textContent=c;
-    b.onclick=function(){activeCat=c;displayNews();};
-    el.appendChild(b);
-  });
-}
-
-function timeAgo(ts){
-  var d=Date.now()-ts,m=Math.floor(d/60000),h=Math.floor(d/3600000);
-  if(m<2)return 'agora';
-  if(m<60)return 'h\u00e1 '+m+'min';
-  if(h<24)return 'h\u00e1 '+h+'h';
-  return 'h\u00e1 '+Math.floor(h/24)+'d';
-}
-
-function displayNews(){
-  renderNewsCats();
-  var grid=document.getElementById('newsGrid');
-  if(!newsLoaded){
-    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2.5rem;color:#888;font-size:14px;">'
-      +'<div class="spin show" style="margin-bottom:1rem"><span></span><span></span><span></span></div>'
-      +'A carregar not\u00edcias...</div>';
-    return;
-  }
-  var items=activeCat==='Tudo'?NEWS:NEWS.filter(function(n){return n.cat===activeCat;});
-  if(!items.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;font-size:14px;">Sem not\u00edcias.</div>';return;}
-  grid.innerHTML=items.map(function(n){
-    var col=CAT_COLORS[n.cat]||['#F5F5F0','#444'];
-    return '<a class="nc" href="'+(n.url||'#')+'" target="_blank" rel="noopener">'
-      +'<span class="ncc" style="background:'+col[0]+';color:'+col[1]+'">'+n.cat+'</span>'
-      +'<div class="nct">'+esc(n.title)+'</div>'
-      +'<div class="ncm"><span>'+esc(n.src)+'</span><span>'+timeAgo(n.ts)+'</span></div></a>';
-  }).join('');
-}
-
-async function fetchRSSFeed(feed){
-  var proxies=[
-    function(u){return fetch('https://corsproxy.io/?url='+encodeURIComponent(u)).then(function(r){return r.text();});},
-    function(u){return fetch('https://api.allorigins.win/get?url='+encodeURIComponent(u)).then(function(r){return r.json();}).then(function(d){return d.contents;});},
-    function(u){return fetch('https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)).then(function(r){return r.text();});}
-  ];
-  for(var i=0;i<proxies.length;i++){
-    try{
-      var text=await proxies[i](feed.url);
-      if(!text||text.length<100)continue;
-      var xml=new DOMParser().parseFromString(text,'text/xml');
-      var items=Array.from(xml.querySelectorAll('item'));
-      if(!items.length)continue;
-      var ts=Date.now();
-      return items.slice(0,4).map(function(item){
-        var t=item.querySelector('title');
-        var s=item.querySelector('source');
-        var l=item.querySelector('link')||item.querySelector('guid');
-        return {
-          title:t?(t.textContent||'').replace(/ - [^-]+$/,'').trim():'',
-          cat:feed.cat,
-          src:s?s.textContent.trim():'Google News',
-          url:l?l.textContent.trim():'https://news.google.com',
-          ts:ts
-        };
-      }).filter(function(n){return n.title.length>5;});
-    }catch(e){continue;}
-  }
-  return [];
-}
-
-async function fetchLiveNews(force){
-  if(!force){
-    try{
-      var raw=localStorage.getItem(NEWS_CACHE_KEY);
-      if(raw){var c=JSON.parse(raw);if(Date.now()-c.fetchedAt<NEWS_CACHE_TTL){NEWS=c.items;newsLoaded=true;displayNews();return;}}
-    }catch(e){}
-  }
-  newsLoaded=false;displayNews();
-  try{
-    var all=await Promise.all(GNEWS_FEEDS.map(fetchRSSFeed));
-    NEWS=all.reduce(function(a,b){return a.concat(b);},[]).filter(function(n){return n.title;});
-    if(!NEWS.length)throw new Error('empty');
-    newsLoaded=true;
-    try{localStorage.setItem(NEWS_CACHE_KEY,JSON.stringify({fetchedAt:Date.now(),items:NEWS}));}catch(e){}
-    displayNews();
-    setTimeout(function(){fetchLiveNews(true);},NEWS_CACHE_TTL);
-  }catch(err){
-    newsLoaded=true;
-    NEWS=[{title:'N\u00e3o foi poss\u00edvel carregar not\u00edcias. Tenta novamente.',cat:'Mundo',src:'Nuvex',url:'https://news.google.com',ts:Date.now()}];
-    displayNews();
-  }
-}
-
-function renderNews(){renderNewsCats();displayNews();fetchLiveNews(false);}
 
 function getQueryParam(){return new URL(window.location.href).searchParams.get('q')||null;}
 function pushURL(q){var u=new URL(window.location.href);q?u.searchParams.set('q',q):u.searchParams.delete('q');history.pushState({q:q},'',u.toString());}
