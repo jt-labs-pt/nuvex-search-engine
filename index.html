@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Nuvex"/>
 <meta name="theme-color" content="#4A7CF6"/>
 <link rel="apple-touch-icon" href="/icon-512.png"/>
@@ -14,48 +13,69 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F5F0; color: #1a1a1a; min-height: 100vh; }
-#wrap { display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1rem 4rem; }
+#wrap { display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem 4rem; }
 #logo { font-size: 52px; font-weight: 500; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
 #logo span { color: #4A7CF6; }
 #sub { font-size: 12px; color: #888; letter-spacing: .06em; margin-bottom: 1rem; }
 #installBtn { height: 34px; padding: 0 16px; border-radius: 17px; background: #4A7CF6; border: none; color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; display: none; align-items: center; gap: 6px; margin-bottom: 1.25rem; }
 #installBtn.show { display: flex; }
 #installBtn:hover { background: #3567e8; }
-#sbox { width: 100%; max-width: 640px; position: relative; margin-bottom: 1.25rem; }
-#qinput { width: 100%; height: 52px; border-radius: 26px; border: 1.5px solid #ddd; background: #fff; padding: 0 54px 0 22px; font-size: 15px; color: #1a1a1a; outline: none; font-family: inherit; }
-#qinput:focus { border-color: #4A7CF6; box-shadow: 0 0 0 3px rgba(74,124,246,.12); }
-#qinput::placeholder { color: #bbb; }
-#sbtn { position: absolute; right: 7px; top: 7px; width: 38px; height: 38px; border-radius: 50%; background: #4A7CF6; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-#sbtn:hover { background: #3567e8; }
-#sbtn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-#chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; max-width: 640px; margin-bottom: 1.75rem; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; background: #fff; border: 1px solid #e5e5e0; border-radius: 25px; padding: 4px; margin-bottom: 1.5rem; max-width: 640px; width: 100%; }
+.tab { padding: 7px 14px; border-radius: 20px; font-size: 12px; color: #666; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all .15s; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.tab.on { background: #4A7CF6; color: #fff; }
+.tab svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.panel { width: 100%; max-width: 640px; display: none; flex-direction: column; align-items: stretch; }
+.panel.on { display: flex; }
+.sbox { position: relative; margin-bottom: 1.25rem; }
+.sinput { width: 100%; height: 52px; border-radius: 26px; border: 1.5px solid #ddd; background: #fff; padding: 0 54px 0 22px; font-size: 15px; color: #1a1a1a; outline: none; font-family: inherit; }
+.sinput:focus { border-color: #4A7CF6; box-shadow: 0 0 0 3px rgba(74,124,246,.12); }
+.sinput::placeholder { color: #bbb; }
+.sbtn { position: absolute; right: 7px; top: 7px; width: 38px; height: 38px; border-radius: 50%; background: #4A7CF6; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.sbtn:hover { background: #3567e8; }
+.sbtn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+#chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 1.75rem; }
 .chip { height: 29px; padding: 0 12px; border-radius: 15px; border: 1px solid #e5e5e0; background: #fff; font-size: 11px; color: #666; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; }
 .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
 .chip.on .dot { opacity: 1; }
-#results { width: 100%; max-width: 640px; }
-.sugs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 2rem; }
+.sugs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 1rem; }
 .sug { padding: 7px 16px; border-radius: 18px; background: #fff; border: 1px solid #e5e5e0; font-size: 13px; color: #666; cursor: pointer; font-family: inherit; }
 .sug:hover { background: #f5f5f0; }
-.spinner { display: flex; gap: 7px; justify-content: center; margin: 2.5rem 0; }
+.spinner { display: flex; gap: 7px; justify-content: center; margin: 2rem 0; }
 .spinner span { width: 9px; height: 9px; border-radius: 50%; background: #4A7CF6; animation: bop 1.2s infinite; }
 .spinner span:nth-child(2) { animation-delay: .2s; }
 .spinner span:nth-child(3) { animation-delay: .4s; }
 @keyframes bop { 0%,80%,100% { transform: scale(.6); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
-.summary { background: #fff; border: 1.5px solid #4A7CF6; border-radius: 14px; padding: 16px 18px; margin-bottom: 1.5rem; }
-.slabel { font-size: 11px; font-weight: 600; color: #185FA5; background: #EEF3FF; padding: 3px 10px; border-radius: 8px; display: inline-block; margin-bottom: 9px; }
-.stext { font-size: 14px; color: #333; line-height: 1.7; }
-.stags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
-.stag { font-size: 11px; background: #f5f5f0; border: 1px solid #e5e5e0; border-radius: 8px; padding: 2px 9px; color: #555; }
-.sechead { display: flex; align-items: center; gap: 8px; margin: 12px 0 10px; }
+.card-summary { background: #fff; border: 1.5px solid #4A7CF6; border-radius: 14px; padding: 14px 16px; margin-bottom: 1.25rem; }
+.clabel { font-size: 11px; font-weight: 600; color: #185FA5; background: #EEF3FF; padding: 3px 10px; border-radius: 8px; display: inline-block; margin-bottom: 8px; }
+.ctext { font-size: 14px; color: #333; line-height: 1.6; }
+.ctags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.ctag { font-size: 11px; background: #f5f5f0; border: 1px solid #e5e5e0; border-radius: 8px; padding: 2px 9px; color: #555; }
+.sechead { display: flex; align-items: center; gap: 8px; margin: 10px 0 8px; }
 .secbadge { font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 10px; }
-.rcard { background: #fff; border: 1px solid #e8e8e3; border-radius: 14px; padding: 12px 16px; margin-bottom: 9px; text-decoration: none; display: block; }
+.rcard { background: #fff; border: 1px solid #e8e8e3; border-radius: 14px; padding: 12px 16px; margin-bottom: 8px; text-decoration: none; display: block; }
 .rcard:hover { border-color: #ccc; background: #fafaf7; }
 .rtop { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
 .rsrc { font-size: 11px; color: #999; }
 .rbadge { font-size: 10px; padding: 2px 8px; border-radius: 7px; font-weight: 600; }
-.rtitle { font-size: 14px; font-weight: 500; color: #1558B0; margin-bottom: 5px; line-height: 1.35; }
-.rsnip { font-size: 12px; color: #666; line-height: 1.6; }
-.divider { height: 1px; background: #ebebeb; margin: 1.25rem 0; }
+.rtitle { font-size: 14px; font-weight: 500; color: #1558B0; margin-bottom: 4px; line-height: 1.35; }
+.rsnip { font-size: 12px; color: #666; line-height: 1.5; }
+.divider { height: 1px; background: #ebebeb; margin: 1rem 0; }
+.rinput-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
+.rinput-wrap { position: relative; }
+.rinput { width: 100%; height: 48px; border-radius: 24px; border: 1.5px solid #ddd; background: #fff; padding: 0 48px 0 18px; font-size: 14px; color: #1a1a1a; outline: none; font-family: inherit; }
+.rinput:focus { border-color: #4A7CF6; }
+.rinput::placeholder { color: #bbb; }
+.rloc-btn { position: absolute; right: 8px; top: 8px; width: 32px; height: 32px; border-radius: 50%; background: #F5F5F0; border: 1px solid #e5e5e0; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rloc-btn svg { width: 14px; height: 14px; stroke: #666; fill: none; stroke-width: 2; stroke-linecap: round; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1rem; }
+.filter-pill { padding: 6px 12px; border-radius: 14px; border: 1px solid #e5e5e0; background: #fff; font-size: 12px; color: #666; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 4px; }
+.filter-pill.on { border-color: #4A7CF6; color: #185FA5; background: #EEF3FF; border-width: 1.5px; }
+.transport-row { display: flex; gap: 7px; margin-bottom: 1rem; flex-wrap: wrap; }
+.transport-btn { padding: 7px 14px; border-radius: 14px; border: 1px solid #e5e5e0; background: #fff; font-size: 12px; color: #666; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; }
+.transport-btn.on { border-color: #4A7CF6; background: #EEF3FF; color: #185FA5; border-width: 1.5px; }
+.transport-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.go-btn { width: 100%; height: 48px; border-radius: 24px; background: #4A7CF6; border: none; color: #fff; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; margin-bottom: 1.5rem; }
+.go-btn:hover { background: #3567e8; }
 .modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
 .modal-bg.show { display: flex; }
 .modal { background: #fff; border-radius: 16px; padding: 28px 24px; max-width: 360px; width: 90%; position: relative; }
@@ -64,38 +84,159 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .modal-close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 22px; color: #aaa; cursor: pointer; line-height: 1; }
 .mstep { background: #F5F5F0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #444; line-height: 1.8; margin-bottom: 10px; }
 .mtag { display: inline-block; background: #4A7CF6; color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 11px; font-weight: 600; }
-@media(max-width:480px) { #logo { font-size: 40px; } }
+@media(max-width:520px) { #logo { font-size: 40px; } .tab { padding: 6px 10px; font-size: 11px; } }
 </style>
 </head>
 <body>
-
 <div id="wrap">
   <div id="logo">Nu<span>ve</span>x</div>
-  <div id="sub">pesquisa &middot; IA</div>
+  <div id="sub">pesquisa &middot; IA &middot; rotas &middot; m&uacute;sica &middot; streaming &middot; compras</div>
 
   <button id="installBtn" onclick="handleInstall()">
     <svg viewBox="0 0 24 24" width="13" height="13" stroke="#fff" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v13m0 0l-4-4m4 4l4-4M2 17v2a2 2 0 002 2h16a2 2 0 002-2v-2"/></svg>
     Instalar app
   </button>
 
-  <div id="sbox">
-    <input id="qinput" type="text" placeholder="Pesquisa em todos os motores e IAs..." autocomplete="off"/>
-    <button id="sbtn" onclick="doSearch()">
+  <div class="tabs">
+    <button class="tab on" id="tabSearch" onclick="setMode('search')">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      Pesquisa
+    </button>
+    <button class="tab" id="tabRoute" onclick="setMode('route')">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M5 8v3a2 2 0 002 2h10a2 2 0 012 2v1"/></svg>
+      Rotas
+    </button>
+    <button class="tab" id="tabMusic" onclick="setMode('music')">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      M&uacute;sica
+    </button>
+    <button class="tab" id="tabStream" onclick="setMode('stream')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Streaming
+    </button>
+    <button class="tab" id="tabShop" onclick="setMode('shop')">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Compras
     </button>
   </div>
 
-  <div id="chips"></div>
-
-  <div id="results">
-    <div class="sugs">
-      <button class="sug" onclick="setQ('inteligência artificial 2025')">inteligência artificial 2025</button>
-      <button class="sug" onclick="setQ('melhores séries Netflix')">melhores séries Netflix</button>
-      <button class="sug" onclick="setQ('receitas saudáveis rápidas')">receitas saudáveis rápidas</button>
-      <button class="sug" onclick="setQ('aprender programação')">aprender programação</button>
-      <button class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</button>
-      <button class="sug" onclick="setQ('notícias Portugal hoje')">notícias Portugal hoje</button>
+  <!-- SEARCH -->
+  <div class="panel on" id="searchPanel">
+    <div class="sbox">
+      <input class="sinput" id="qinput" type="text" placeholder="Pesquisa em todos os motores e IAs..." autocomplete="off"/>
+      <button class="sbtn" onclick="doSearch()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
     </div>
+    <div id="chips"></div>
+    <div id="results">
+      <div class="sugs">
+        <button class="sug" onclick="setQ('inteligencia artificial 2025')">inteligencia artificial 2025</button>
+        <button class="sug" onclick="setQ('melhores séries Netflix')">melhores series Netflix</button>
+        <button class="sug" onclick="setQ('receitas saudáveis')">receitas saudáveis</button>
+        <button class="sug" onclick="setQ('aprender programação')">aprender programação</button>
+        <button class="sug" onclick="setQ('viagens baratas Europa')">viagens baratas Europa</button>
+        <button class="sug" onclick="setQ('noticias Portugal hoje')">noticias Portugal hoje</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUTES -->
+  <div class="panel" id="routePanel">
+    <div class="rinput-row">
+      <div class="rinput-wrap">
+        <input class="rinput" id="origin" placeholder="Origem (ex: Lisboa)" autocomplete="off"/>
+        <button class="rloc-btn" onclick="getLocation()" title="Usar a minha localização">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+      </div>
+      <div class="rinput-wrap">
+        <input class="rinput" id="destination" placeholder="Destino (ex: Porto)" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="transport-row">
+      <button class="transport-btn on" id="t-car" onclick="setTransport('car')">
+        <svg viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="9" rx="2"/><path d="M5 9l2-4h10l2 4"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        Carro
+      </button>
+      <button class="transport-btn" id="t-moto" onclick="setTransport('moto')">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/><path d="M5 16h4l3-6h5l2 4"/></svg>
+        Moto
+      </button>
+      <button class="transport-btn" id="t-bike" onclick="setTransport('bike')">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-8 3 5 2-3 3 6"/></svg>
+        Bicicleta
+      </button>
+      <button class="transport-btn" id="t-walk" onclick="setTransport('walk')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M9 22l1-6 2 3 2-8"/><path d="M6 12l2-3 4 1 3-3"/></svg>
+        A pé
+      </button>
+    </div>
+    <div class="filter-row" id="routeFilters">
+      <button class="filter-pill" id="f-toll" onclick="toggleFilter('toll')">Sem portagens</button>
+      <button class="filter-pill" id="f-highway" onclick="toggleFilter('highway')">Evitar autoestradas</button>
+      <button class="filter-pill" id="f-ferry" onclick="toggleFilter('ferry')">Evitar ferries</button>
+      <button class="filter-pill" id="f-shortest" onclick="toggleFilter('shortest')">Rota mais curta</button>
+    </div>
+    <button class="go-btn" onclick="calcRoutes()">Ver em todos os GPS</button>
+    <div id="routeResults"></div>
+  </div>
+
+  <!-- MUSIC -->
+  <div class="panel" id="musicPanel">
+    <div class="sbox">
+      <input class="sinput" id="minput" type="text" placeholder="Artista ou musica (ex: Coldplay...)" autocomplete="off"/>
+      <button class="sbtn" onclick="searchMusic()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+    </div>
+    <div class="sugs">
+      <button class="sug" onclick="setMusic('Coldplay')">Coldplay</button>
+      <button class="sug" onclick="setMusic('Taylor Swift')">Taylor Swift</button>
+      <button class="sug" onclick="setMusic('Bad Bunny')">Bad Bunny</button>
+      <button class="sug" onclick="setMusic('The Weeknd')">The Weeknd</button>
+      <button class="sug" onclick="setMusic('Dua Lipa')">Dua Lipa</button>
+      <button class="sug" onclick="setMusic('Salvador Sobral')">Salvador Sobral</button>
+    </div>
+    <div id="musicResults"></div>
+  </div>
+
+  <!-- STREAMING -->
+  <div class="panel" id="streamPanel">
+    <div class="sbox">
+      <input class="sinput" id="stinput" type="text" placeholder="Filme ou serie (ex: Breaking Bad...)" autocomplete="off"/>
+      <button class="sbtn" onclick="searchStream()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+    </div>
+    <div class="sugs">
+      <button class="sug" onclick="setStream('Breaking Bad')">Breaking Bad</button>
+      <button class="sug" onclick="setStream('Dune')">Dune</button>
+      <button class="sug" onclick="setStream('The Bear')">The Bear</button>
+      <button class="sug" onclick="setStream('Oppenheimer')">Oppenheimer</button>
+      <button class="sug" onclick="setStream('Squid Game')">Squid Game</button>
+      <button class="sug" onclick="setStream('Avatar')">Avatar</button>
+    </div>
+    <div id="streamResults"></div>
+  </div>
+
+  <!-- SHOPPING -->
+  <div class="panel" id="shopPanel">
+    <div class="sbox">
+      <input class="sinput" id="shopinput" type="text" placeholder="Produto (ex: iPhone 15, Nike Air Max...)" autocomplete="off"/>
+      <button class="sbtn" onclick="searchShop()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+    </div>
+    <div class="sugs">
+      <button class="sug" onclick="setShop('iPhone 15')">iPhone 15</button>
+      <button class="sug" onclick="setShop('Nike Air Max')">Nike Air Max</button>
+      <button class="sug" onclick="setShop('MacBook Pro')">MacBook Pro</button>
+      <button class="sug" onclick="setShop('PS5')">PS5</button>
+      <button class="sug" onclick="setShop('Lego')">Lego</button>
+      <button class="sug" onclick="setShop('Samsung TV')">Samsung TV</button>
+    </div>
+    <div id="shopResults"></div>
   </div>
 </div>
 
@@ -104,7 +245,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     <button class="modal-close" onclick="closeModal()">&#215;</button>
     <h2>Instalar o Nuvex</h2>
     <p>Adiciona ao teu ecr&atilde; inicial como uma app nativa.</p>
-    <div class="mstep"><strong>iPhone / iPad (Safari):</strong><br>1. Abre no <strong>Safari</strong><br>2. Toca em <span class="mtag">Partilhar &#x2191;</span><br>3. Toca em <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>
+    <div class="mstep"><strong>iPhone / iPad (Safari):</strong><br>1. Abre no <strong>Safari</strong><br>2. Toca em <span class="mtag">Partilhar</span><br>3. Toca em <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>
     <div class="mstep"><strong>Android (Chrome):</strong><br>Menu <span class="mtag">&#8942;</span> &rarr; <strong>"Adicionar ao ecr&atilde; inicial"</strong></div>
     <div class="mstep"><strong>Computador (Chrome / Edge):</strong><br>Clica no &iacute;cone <span class="mtag">&#x2193;</span> na barra de endere&ccedil;o<br>ou menu <span class="mtag">&#8942;</span> &rarr; <strong>"Instalar Nuvex"</strong></div>
   </div>
@@ -112,31 +253,82 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <script>
 var ENGINES = [
-  { id:'google',     name:'Google',     c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.google.com/search?q=' + encodeURIComponent(q); } },
-  { id:'bing',       name:'Bing',       c:'#00809D', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.bing.com/search?q=' + encodeURIComponent(q); } },
-  { id:'duckduckgo', name:'DuckDuckGo', c:'#DE5833', bg:'#FAECE7', tc:'#712B13', url: function(q){ return 'https://duckduckgo.com/?q=' + encodeURIComponent(q); } },
-  { id:'yahoo',      name:'Yahoo',      c:'#6001D2', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://search.yahoo.com/search?p=' + encodeURIComponent(q); } },
-  { id:'ecosia',     name:'Ecosia',     c:'#3D7D24', bg:'#EAF3DE', tc:'#27500A', url: function(q){ return 'https://www.ecosia.org/search?q=' + encodeURIComponent(q); } },
-  { id:'baidu',      name:'Baidu',      c:'#2932E1', bg:'#E6F1FB', tc:'#0C447C', url: function(q){ return 'https://www.baidu.com/s?wd=' + encodeURIComponent(q); } },
-  { id:'yandex',     name:'Yandex',     c:'#CC0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://yandex.com/search/?text=' + encodeURIComponent(q); } },
-  { id:'perplexity', name:'Perplexity', c:'#20A0A0', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.perplexity.ai/search?q=' + encodeURIComponent(q); } }
+  { id:'google',     name:'Google',     c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.google.com/search?q='+encodeURIComponent(q); } },
+  { id:'bing',       name:'Bing',       c:'#00809D', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.bing.com/search?q='+encodeURIComponent(q); } },
+  { id:'duckduckgo', name:'DuckDuckGo', c:'#DE5833', bg:'#FAECE7', tc:'#712B13', url: function(q){ return 'https://duckduckgo.com/?q='+encodeURIComponent(q); } },
+  { id:'yahoo',      name:'Yahoo',      c:'#6001D2', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://search.yahoo.com/search?p='+encodeURIComponent(q); } },
+  { id:'ecosia',     name:'Ecosia',     c:'#3D7D24', bg:'#EAF3DE', tc:'#27500A', url: function(q){ return 'https://www.ecosia.org/search?q='+encodeURIComponent(q); } },
+  { id:'baidu',      name:'Baidu',      c:'#2932E1', bg:'#E6F1FB', tc:'#0C447C', url: function(q){ return 'https://www.baidu.com/s?wd='+encodeURIComponent(q); } },
+  { id:'yandex',     name:'Yandex',     c:'#CC0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://yandex.com/search/?text='+encodeURIComponent(q); } },
+  { id:'perplexity', name:'Perplexity', c:'#20A0A0', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.perplexity.ai/search?q='+encodeURIComponent(q); } }
 ];
-
 var AI = [
-  { name:'Claude',    c:'#CC785C', bg:'#FAECE7', tc:'#712B13', domain:'claude.ai',             url: function(q){ return 'https://claude.ai/new?q=' + encodeURIComponent(q); },          snip:'Abre no chat com a tua pesquisa já escrita.' },
-  { name:'ChatGPT',   c:'#10A37F', bg:'#E1F5EE', tc:'#085041', domain:'chatgpt.com',           url: function(q){ return 'https://chatgpt.com/?q=' + encodeURIComponent(q); },            snip:'Abre com a tua pesquisa, pronto para responder.' },
-  { name:'Gemini',    c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', domain:'gemini.google.com',     url: function(q){ return 'https://gemini.google.com/app#' + encodeURIComponent(q); },     snip:'Abre com a tua pergunta inserida.' },
-  { name:'Copilot',   c:'#6264A7', bg:'#EEEDFE', tc:'#3C3489', domain:'copilot.microsoft.com', url: function(q){ return 'https://copilot.microsoft.com/?q=' + encodeURIComponent(q); },  snip:'IA da Microsoft com resultados do Bing.' },
-  { name:'Grok',      c:'#222222', bg:'#F5F5F0', tc:'#444444', domain:'grok.com',              url: function(q){ return 'https://grok.com/?q=' + encodeURIComponent(q); },               snip:'Pesquisa em tempo real na web e na plataforma X.' },
-  { name:'Mistral',   c:'#FF6600', bg:'#FAEEDA', tc:'#633806', domain:'chat.mistral.ai',       url: function(q){ return 'https://chat.mistral.ai/chat?q=' + encodeURIComponent(q); },    snip:'Resposta precisa com foco na neutralidade.' }
+  { name:'Claude',   c:'#CC785C', bg:'#FAECE7', tc:'#712B13', domain:'claude.ai',             url: function(q){ return 'https://claude.ai/new?q='+encodeURIComponent(q); },          snip:'Abre no chat com a tua pesquisa j\u00e1 escrita.' },
+  { name:'ChatGPT',  c:'#10A37F', bg:'#E1F5EE', tc:'#085041', domain:'chatgpt.com',           url: function(q){ return 'https://chatgpt.com/?q='+encodeURIComponent(q); },            snip:'Abre com a tua pesquisa, pronto para responder.' },
+  { name:'Gemini',   c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', domain:'gemini.google.com',     url: function(q){ return 'https://gemini.google.com/app#'+encodeURIComponent(q); },     snip:'Abre com a tua pergunta inserida.' },
+  { name:'Copilot',  c:'#6264A7', bg:'#EEEDFE', tc:'#3C3489', domain:'copilot.microsoft.com', url: function(q){ return 'https://copilot.microsoft.com/?q='+encodeURIComponent(q); },  snip:'IA da Microsoft com resultados do Bing.' },
+  { name:'Grok',     c:'#222222', bg:'#F5F5F0', tc:'#444444', domain:'grok.com',              url: function(q){ return 'https://grok.com/?q='+encodeURIComponent(q); },               snip:'Pesquisa em tempo real na web e na plataforma X.' },
+  { name:'Mistral',  c:'#FF6600', bg:'#FAEEDA', tc:'#633806', domain:'chat.mistral.ai',       url: function(q){ return 'https://chat.mistral.ai/chat?q='+encodeURIComponent(q); },    snip:'Resposta precisa com foco na neutralidade.' }
+];
+var MUSIC_PLAYERS = [
+  { name:'Spotify',       c:'#1DB954', bg:'#EAF3DE', tc:'#27500A', url: function(q){ return 'https://open.spotify.com/search/'+encodeURIComponent(q); } },
+  { name:'YouTube Music', c:'#FF0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://music.youtube.com/search?q='+encodeURIComponent(q); } },
+  { name:'YouTube',       c:'#FF0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q); } },
+  { name:'Apple Music',   c:'#FC3C44', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://music.apple.com/search?term='+encodeURIComponent(q); } },
+  { name:'Deezer',        c:'#A238FF', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://www.deezer.com/search/'+encodeURIComponent(q); } },
+  { name:'Tidal',         c:'#000000', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://tidal.com/search?q='+encodeURIComponent(q); } },
+  { name:'Amazon Music',  c:'#FF9900', bg:'#FAEEDA', tc:'#633806', url: function(q){ return 'https://music.amazon.com/search/'+encodeURIComponent(q); } },
+  { name:'SoundCloud',    c:'#FF5500', bg:'#FAECE7', tc:'#712B13', url: function(q){ return 'https://soundcloud.com/search?q='+encodeURIComponent(q); } },
+  { name:'Bandcamp',      c:'#1DA0C3', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://bandcamp.com/search?q='+encodeURIComponent(q); } },
+  { name:'Last.fm',       c:'#D51007', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.last.fm/search?q='+encodeURIComponent(q); } },
+  { name:'Genius',        c:'#444444', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://genius.com/search?q='+encodeURIComponent(q); } },
+  { name:'Shazam',        c:'#0088FF', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.shazam.com/search?q='+encodeURIComponent(q); } }
+];
+var STREAM_SERVICES = [
+  { name:'Netflix',       c:'#E50914', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.netflix.com/search?q='+encodeURIComponent(q); } },
+  { name:'Disney+',       c:'#113CCF', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.disneyplus.com/search/'+encodeURIComponent(q); } },
+  { name:'HBO Max',       c:'#5822B4', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://play.max.com/search?q='+encodeURIComponent(q); } },
+  { name:'Amazon Prime',  c:'#00A8E0', bg:'#E6F1FB', tc:'#0C447C', url: function(q){ return 'https://www.primevideo.com/search/?phrase='+encodeURIComponent(q); } },
+  { name:'Apple TV+',     c:'#555555', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://tv.apple.com/search?term='+encodeURIComponent(q); } },
+  { name:'Paramount+',    c:'#0064FF', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.paramountplus.com/search/'+encodeURIComponent(q); } },
+  { name:'Crunchyroll',   c:'#F47521', bg:'#FAECE7', tc:'#712B13', url: function(q){ return 'https://www.crunchyroll.com/search?q='+encodeURIComponent(q); } },
+  { name:'Mubi',          c:'#1C1C1C', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://mubi.com/search?query='+encodeURIComponent(q); } },
+  { name:'YouTube',       c:'#FF0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q); } },
+  { name:'Plex',          c:'#E5A00D', bg:'#FAEEDA', tc:'#633806', url: function(q){ return 'https://app.plex.tv/desktop/#!/search?query='+encodeURIComponent(q); } },
+  { name:'JustWatch',     c:'#FFC300', bg:'#FAEEDA', tc:'#633806', url: function(q){ return 'https://www.justwatch.com/pt/pesquisa?q='+encodeURIComponent(q); } }
+];
+var SHOPS = [
+  { name:'Amazon',            c:'#FF9900', bg:'#FAEEDA', tc:'#633806', url: function(q){ return 'https://www.amazon.es/s?k='+encodeURIComponent(q); } },
+  { name:'eBay',              c:'#E53238', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.ebay.com/sch/i.html?_nkw='+encodeURIComponent(q); } },
+  { name:'Fnac',              c:'#F7A600', bg:'#FAEEDA', tc:'#633806', url: function(q){ return 'https://www.fnac.pt/SearchResult/ResultSet.aspx?Search='+encodeURIComponent(q); } },
+  { name:'Worten',            c:'#E30613', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.worten.pt/pesquisa?query='+encodeURIComponent(q); } },
+  { name:'El Corte Ingl\u00e9s', c:'#006633', bg:'#EAF3DE', tc:'#27500A', url: function(q){ return 'https://www.elcorteingles.pt/search/?s='+encodeURIComponent(q); } },
+  { name:'Zara',              c:'#000000', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://www.zara.com/pt/pt/search?searchTerm='+encodeURIComponent(q); } },
+  { name:'ASOS',              c:'#2D2D2D', bg:'#F1EFE8', tc:'#444441', url: function(q){ return 'https://www.asos.com/pt/pesquisar/?q='+encodeURIComponent(q); } },
+  { name:'AliExpress',        c:'#FF4747', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.aliexpress.com/wholesale?SearchText='+encodeURIComponent(q); } },
+  { name:'Google Shopping',   c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', url: function(q){ return 'https://www.google.com/search?q='+encodeURIComponent(q)+'&tbm=shop'; } },
+  { name:'Bing Shopping',     c:'#00809D', bg:'#E1F5EE', tc:'#085041', url: function(q){ return 'https://www.bing.com/shop?q='+encodeURIComponent(q); } },
+  { name:'Idealo',            c:'#CC0000', bg:'#FCEBEB', tc:'#791F1F', url: function(q){ return 'https://www.idealo.pt/comprar/pesquisar/?q='+encodeURIComponent(q); } },
+  { name:'OLX',               c:'#5E0FB0', bg:'#EEEDFE', tc:'#3C3489', url: function(q){ return 'https://www.olx.pt/ads/q-'+encodeURIComponent(q).replace(/%20/g,'-')+'/'; } }
 ];
 
 var sel = new Set(ENGINES.map(function(e){ return e.id; }));
+var transport = 'car';
+var filters = {};
 
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---- MODE ---- */
+function setMode(m) {
+  document.querySelectorAll('.panel').forEach(function(el){ el.classList.remove('on'); });
+  document.querySelectorAll('.tab').forEach(function(el){ el.className = 'tab'; });
+  var panel = document.getElementById(m + 'Panel');
+  if (panel) panel.classList.add('on');
+  var tab = document.getElementById('tab' + m.charAt(0).toUpperCase() + m.slice(1));
+  if (tab) tab.className = 'tab on';
 }
 
+/* ---- CHIPS ---- */
 function renderChips() {
   var el = document.getElementById('chips');
   el.innerHTML = '';
@@ -144,113 +336,199 @@ function renderChips() {
     var btn = document.createElement('button');
     btn.className = 'chip' + (sel.has(e.id) ? ' on' : '');
     btn.innerHTML = '<span class="dot"></span>' + e.name;
-    if (sel.has(e.id)) {
-      btn.style.borderColor = e.c;
-      btn.style.color = e.c;
-      btn.style.background = e.bg;
-      btn.style.borderWidth = '1.5px';
-    }
+    if (sel.has(e.id)) { btn.style.borderColor = e.c; btn.style.color = e.c; btn.style.background = e.bg; btn.style.borderWidth = '1.5px'; }
     btn.onclick = function() {
-      if (sel.has(e.id)) { if (sel.size > 1) sel.delete(e.id); }
-      else sel.add(e.id);
+      if (sel.has(e.id)) { if (sel.size > 1) sel.delete(e.id); } else sel.add(e.id);
       renderChips();
     };
     el.appendChild(btn);
   });
 }
 
-function setQ(text) {
-  document.getElementById('qinput').value = text;
-  doSearch();
+/* ---- GENERIC LINK RESULTS ---- */
+function showLinks(areaId, items, q, labelText, badgeStyle) {
+  var area = document.getElementById(areaId);
+  var h = '<div class="card-summary"><div class="clabel">' + labelText + '</div>';
+  h += '<div class="ctext">A pesquisar <strong>' + esc(q) + '</strong> em ' + items.length + ' plataformas.</div></div>';
+  h += '<div class="sechead"><span class="secbadge" style="' + badgeStyle + '">abrir em</span></div>';
+  items.forEach(function(s) {
+    h += '<a class="rcard" href="' + s.url(q) + '" target="_blank" rel="noopener">';
+    h += '<div class="rtop"><span class="rbadge" style="background:' + s.bg + ';color:' + s.tc + '">' + s.name + '</span></div>';
+    h += '<div class="rtitle">' + esc(q) + ' no ' + s.name + ' &rarr;</div>';
+    h += '</a>';
+  });
+  area.innerHTML = h;
 }
 
+/* ---- SEARCH ---- */
+function setQ(q) { document.getElementById('qinput').value = q; doSearch(); }
 function doSearch() {
   var q = document.getElementById('qinput').value.trim();
   if (!q) return;
-
   var u = new URL(window.location.href);
   u.searchParams.set('q', q);
   history.pushState({ q: q }, '', u.toString());
-
   var area = document.getElementById('results');
   area.innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
-
   setTimeout(function() {
-    var h = '';
-
-    h += '<div class="summary">';
-    h += '<div class="slabel">pesquisa com IA</div>';
-    h += '<div class="stext">Nuvex consultou <strong>' + AI.length + ' IAs</strong> e <strong>' + sel.size + ' motores</strong> para <strong>' + esc(q) + '</strong>.</div>';
-    h += '<div class="stags">';
-    AI.forEach(function(a) {
-      h += '<span class="stag" style="border-color:' + a.c + ';color:' + a.tc + '">' + a.name + '</span>';
-    });
-    h += '</div></div>';
-
+    var h = '<div class="card-summary"><div class="clabel">pesquisa com IA</div>';
+    h += '<div class="ctext">Nuvex consultou <strong>' + AI.length + ' IAs</strong> e <strong>' + sel.size + ' motores</strong> para <strong>' + esc(q) + '</strong>.</div>';
+    h += '<div class="ctags">' + AI.map(function(a){ return '<span class="ctag" style="border-color:'+a.c+';color:'+a.tc+'">'+a.name+'</span>'; }).join('') + '</div></div>';
     h += '<div class="sechead"><span class="secbadge" style="background:#EEF3FF;color:#0C447C;">abrir nas IAs</span></div>';
     AI.forEach(function(a) {
-      h += '<a class="rcard" href="' + a.url(q) + '" target="_blank" rel="noopener">';
-      h += '<div class="rtop"><span class="rbadge" style="background:' + a.bg + ';color:' + a.tc + '">' + a.name + '</span><span class="rsrc">' + a.domain + '</span></div>';
-      h += '<div class="rtitle">Perguntar "' + esc(q) + '" ao ' + a.name + ' &rarr;</div>';
-      h += '<div class="rsnip">' + a.snip + '</div>';
-      h += '</a>';
+      h += '<a class="rcard" href="'+a.url(q)+'" target="_blank" rel="noopener"><div class="rtop"><span class="rbadge" style="background:'+a.bg+';color:'+a.tc+'">'+a.name+'</span><span class="rsrc">'+a.domain+'</span></div><div class="rtitle">Perguntar "'+esc(q)+'" ao '+a.name+' &rarr;</div><div class="rsnip">'+a.snip+'</div></a>';
     });
-
     h += '<div class="divider"></div>';
     h += '<div class="sechead"><span class="secbadge" style="background:#F5F5F0;color:#444;">motores de busca</span></div>';
     ENGINES.forEach(function(e) {
       if (!sel.has(e.id)) return;
       var domain = e.url(q).split('?')[0].replace('https://www.','').replace('https://','');
-      h += '<a class="rcard" href="' + e.url(q) + '" target="_blank" rel="noopener">';
-      h += '<div class="rtop"><span class="rbadge" style="background:' + e.bg + ';color:' + e.tc + '">' + e.name + '</span><span class="rsrc">' + domain + '</span></div>';
-      h += '<div class="rtitle">Pesquisar "' + esc(q) + '" no ' + e.name + ' &rarr;</div>';
-      h += '<div class="rsnip">Ver resultados em tempo real.</div>';
-      h += '</a>';
+      h += '<a class="rcard" href="'+e.url(q)+'" target="_blank" rel="noopener"><div class="rtop"><span class="rbadge" style="background:'+e.bg+';color:'+e.tc+'">'+e.name+'</span><span class="rsrc">'+domain+'</span></div><div class="rtitle">Pesquisar "'+esc(q)+'" no '+e.name+' &rarr;</div></a>';
     });
-
     area.innerHTML = h;
   }, 600);
 }
 
-window.addEventListener('popstate', function(e) {
-  var q = e.state && e.state.q ? e.state.q : new URL(window.location.href).searchParams.get('q');
-  if (q) { document.getElementById('qinput').value = q; doSearch(); }
-});
-
-document.getElementById('qinput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') doSearch();
-});
-
-var _prompt = null;
-window.addEventListener('beforeinstallprompt', function(e) {
-  e.preventDefault(); _prompt = e;
-  document.getElementById('installBtn').classList.add('show');
-});
-window.addEventListener('appinstalled', function() {
-  document.getElementById('installBtn').classList.remove('show'); _prompt = null;
-});
-
-function handleInstall() {
-  if (_prompt) {
-    _prompt.prompt();
-    _prompt.userChoice.then(function() { _prompt = null; document.getElementById('installBtn').classList.remove('show'); });
-  } else {
-    openModal();
-  }
+/* ---- MUSIC ---- */
+function setMusic(q) { document.getElementById('minput').value = q; searchMusic(); }
+function searchMusic() {
+  var q = document.getElementById('minput').value.trim();
+  if (!q) return;
+  document.getElementById('musicResults').innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
+  setTimeout(function(){ showLinks('musicResults', MUSIC_PLAYERS, q, 'm\u00fasica', 'background:#EAF3DE;color:#27500A;'); }, 400);
 }
 
-function openModal()  { document.getElementById('modal').classList.add('show'); }
+/* ---- STREAMING ---- */
+function setStream(q) { document.getElementById('stinput').value = q; searchStream(); }
+function searchStream() {
+  var q = document.getElementById('stinput').value.trim();
+  if (!q) return;
+  document.getElementById('streamResults').innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
+  setTimeout(function(){ showLinks('streamResults', STREAM_SERVICES, q, 'streaming', 'background:#FCEBEB;color:#791F1F;'); }, 400);
+}
+
+/* ---- SHOPPING ---- */
+function setShop(q) { document.getElementById('shopinput').value = q; searchShop(); }
+function searchShop() {
+  var q = document.getElementById('shopinput').value.trim();
+  if (!q) return;
+  document.getElementById('shopResults').innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
+  setTimeout(function(){ showLinks('shopResults', SHOPS, q, 'compras', 'background:#FAEEDA;color:#633806;'); }, 400);
+}
+
+/* ---- ROUTES ---- */
+function setTransport(t) {
+  transport = t;
+  ['car','moto','bike','walk'].forEach(function(id){ document.getElementById('t-'+id).className = 'transport-btn'; });
+  document.getElementById('t-'+t).className = 'transport-btn on';
+  document.getElementById('routeFilters').style.display = (t === 'bike' || t === 'walk') ? 'none' : 'flex';
+}
+function toggleFilter(f) {
+  filters[f] = !filters[f];
+  document.getElementById('f-'+f).className = 'filter-pill' + (filters[f] ? ' on' : '');
+}
+function getLocation() {
+  if (!navigator.geolocation) { alert('GPS n\u00e3o suportado. Escreve o endere\u00e7o manualmente.'); return; }
+  var btn = document.querySelector('.rloc-btn');
+  btn.style.background = '#EEF3FF';
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      var lat = pos.coords.latitude.toFixed(6);
+      var lon = pos.coords.longitude.toFixed(6);
+      var input = document.getElementById('origin');
+      input.value = lat + ',' + lon;
+      input.dataset.lat = lat;
+      input.dataset.lon = lon;
+      btn.style.background = '#EAF3DE';
+    },
+    function(err) {
+      btn.style.background = '#FCEBEB';
+      var msgs = ['', 'Permiss\u00e3o negada. Permite o GPS nas defini\u00e7\u00f5es do browser.', 'GPS indispon\u00edvel.', 'Tempo limite excedido.'];
+      alert(msgs[err.code] || 'N\u00e3o foi poss\u00edvel obter a localiza\u00e7\u00e3o.');
+    },
+    { timeout: 10000, enableHighAccuracy: true }
+  );
+}
+function calcRoutes() {
+  var originVal = document.getElementById('origin').value.trim();
+  var destVal = document.getElementById('destination').value.trim();
+  if (!originVal || !destVal) { alert('Preenche origem e destino.'); return; }
+  var oEnc = encodeURIComponent(originVal);
+  var dEnc = encodeURIComponent(destVal);
+  var gMode = transport === 'walk' ? 'walking' : transport === 'bike' ? 'bicycling' : 'driving';
+  var appleMode = transport === 'walk' ? 'w' : transport === 'bike' ? 'b' : 'd';
+  var avoidArr = [];
+  if (filters['toll']) avoidArr.push('tolls');
+  if (filters['highway']) avoidArr.push('highways');
+  if (filters['ferry']) avoidArr.push('ferries');
+  var avoidParam = avoidArr.length ? '&avoid=' + avoidArr.join('%7C') : '';
+  var GPS = [
+    { name:'Google Maps',   c:'#4285F4', bg:'#EEF3FF', tc:'#0C447C', url:'https://www.google.com/maps/dir/?api=1&origin='+oEnc+'&destination='+dEnc+'&travelmode='+gMode+avoidParam },
+    { name:'Waze',          c:'#33CCFF', bg:'#E6F1FB', tc:'#0C447C', url:'https://waze.com/ul?q='+dEnc+'&navigate=yes' },
+    { name:'Apple Maps',    c:'#555555', bg:'#F1EFE8', tc:'#444441', url:'https://maps.apple.com/?saddr='+oEnc+'&daddr='+dEnc+'&dirflg='+appleMode },
+    { name:'OpenStreetMap', c:'#7EBC6F', bg:'#EAF3DE', tc:'#27500A', url:'https://www.openstreetmap.org/directions?from='+oEnc+'&to='+dEnc+'&engine=osrm_'+(transport==='walk'?'foot':transport==='bike'?'bike':'car') },
+    { name:'HERE Maps',     c:'#1A237E', bg:'#EEEDFE', tc:'#3C3489', url:'https://share.here.com/r/'+oEnc+'/'+dEnc+'?m='+(transport==='walk'?'w':transport==='bike'?'b':'d') },
+    { name:'Bing Maps',     c:'#00809D', bg:'#E1F5EE', tc:'#085041', url:'https://bing.com/maps/default.aspx?rtp=adr.'+oEnc+'~adr.'+dEnc+'&mode='+(transport==='walk'?'W':transport==='bike'?'B':'D') },
+    { name:'OsmAnd',        c:'#F4801A', bg:'#FAEEDA', tc:'#633806', url:'https://osmand.net/go?lat=&lon=&z=15&start='+oEnc+'&finish='+dEnc }
+  ];
+  var area = document.getElementById('routeResults');
+  var h = '<div style="font-size:13px;color:#666;margin-bottom:12px;">De <strong>'+esc(originVal)+'</strong> para <strong>'+esc(destVal)+'</strong></div>';
+  h += '<div class="sechead"><span class="secbadge" style="background:#EEF3FF;color:#0C447C;">abrir rota em</span></div>';
+  GPS.forEach(function(gps) {
+    h += '<a class="rcard" href="'+gps.url+'" target="_blank" rel="noopener">';
+    h += '<div class="rtop"><span class="rbadge" style="background:'+gps.bg+';color:'+gps.tc+'">'+gps.name+'</span></div>';
+    h += '<div class="rtitle">Abrir no '+gps.name+' &rarr;</div></a>';
+  });
+  area.innerHTML = h;
+}
+
+/* ---- INSTALL ---- */
+var _prompt = null;
+window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); _prompt = e; document.getElementById('installBtn').classList.add('show'); });
+window.addEventListener('appinstalled', function() { document.getElementById('installBtn').classList.remove('show'); _prompt = null; });
+function handleInstall() {
+  if (_prompt) { _prompt.prompt(); _prompt.userChoice.then(function(){ _prompt = null; document.getElementById('installBtn').classList.remove('show'); }); }
+  else document.getElementById('modal').classList.add('show');
+}
 function closeModal() { document.getElementById('modal').classList.remove('show'); }
+if (!window.matchMedia('(display-mode: standalone)').matches && !window.navigator.standalone) {
+  document.getElementById('installBtn').classList.add('show');
+}
 
-var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-if (!standalone) document.getElementById('installBtn').classList.add('show');
+/* ---- INIT ---- */
+document.getElementById('qinput').addEventListener('keydown', function(e){ if(e.key==='Enter') doSearch(); });
+document.getElementById('origin').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('destination').focus(); });
+document.getElementById('destination').addEventListener('keydown', function(e){ if(e.key==='Enter') calcRoutes(); });
+document.getElementById('minput').addEventListener('keydown', function(e){ if(e.key==='Enter') searchMusic(); });
+document.getElementById('stinput').addEventListener('keydown', function(e){ if(e.key==='Enter') searchStream(); });
+document.getElementById('shopinput').addEventListener('keydown', function(e){ if(e.key==='Enter') searchShop(); });
 
-
+renderChips();
 
 var initQ = new URL(window.location.href).searchParams.get('q');
 if (initQ) { document.getElementById('qinput').value = initQ; setTimeout(doSearch, 100); }
 
-renderChips();
+window.addEventListener('popstate', function(e) {
+  var q = e.state && e.state.q ? e.state.q : new URL(window.location.href).searchParams.get('q');
+  if (q) { document.getElementById('qinput').value = q; setMode('search'); doSearch(); }
+});
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      var lat = pos.coords.latitude.toFixed(6);
+      var lon = pos.coords.longitude.toFixed(6);
+      var input = document.getElementById('origin');
+      input.value = lat + ',' + lon;
+      input.dataset.lat = lat;
+      input.dataset.lon = lon;
+      var btn = document.querySelector('.rloc-btn');
+      if (btn) btn.style.background = '#EAF3DE';
+    },
+    function(){},
+    { timeout: 8000, enableHighAccuracy: true }
+  );
+}
 </script>
 </body>
 </html>
